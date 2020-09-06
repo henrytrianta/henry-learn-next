@@ -5,12 +5,14 @@ import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
 import { client } from '../prismic-configuration';
 
-// AnehAneh
+// Masonry
 import Masonry from 'react-masonry-component';
 
+// Animasi
+import { Controller, Scene } from 'react-scrollmagic';
+import { Controls, PlayState, Tween } from 'react-gsap';
+
 // Data
-let stacks = ['PHP', 'Javascript'];
-let project = ['1', '2', '3', '4'];
 const Stack = ({ stack, children, i }) => {
   return (
     <>
@@ -35,30 +37,34 @@ const Stack = ({ stack, children, i }) => {
 
 export async function getStaticProps() {
   const home = await client.getSingle('homepage');
-  const project = await client.query(Prismic.Predicates.at('document.type', 'project'), {
+  const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
     pageSize: 3
   });
   return {
     props: {
       home,
-      project
+      projects
     }
   };
 }
 
-export default function Home(props) {
-  console.log(props);
+export default function Home({ home, projects }) {
+  console.log(home);
+  console.log(projects);
+
+  let projectDummy = ['1', '2', '3', '4'];
+  let stacks = home.data.stacks;
+
   return (
     <>
       <Container maxW="xl" centerContent>
         <Flex direction="row" align="center" py={24}>
           <Heading w={{ base: 'full', md: '4/5' }} size="lg" fontWeight="light" text="center">
-            Hi, my name is Henry, currently working in Kesato as a Project Manager. I learned to do
-            some of the languages such as{' '}
+            {home.data.headline[0].text}{' '}
             {stacks.map((stack, i) => {
               return (
-                <Stack key={i} stack={stack}>
+                <Stack key={i} stack={stack.stack[0].text}>
                   {i + 1 == stacks.length ? '. ' : ', '}
                 </Stack>
               );
@@ -70,25 +76,42 @@ export default function Home(props) {
       </Container>
 
       <Container maxW="xl" centerContent>
-        <Flex direction="row" align="center" py={5}>
-          <Heading
-            width={{ base: 'full', md: 'full' }}
-            size="sm"
-            fontWeight="light"
-            text="center"
-            position="relative"
-            marginBottom="150px"
-          >
-            <Text fontWeight="semibold">Selected Project.</Text>
-            All work, all play
-            <Box
-              position="absolute"
-              left="50%"
-              borderLeft="1px"
-              height="100px"
-              transform="translate(-50%, 50px)"
-            ></Box>
-          </Heading>
+        <Flex direction="column" align="center" py={5} bg="white" zIndex="1">
+          <Controller>
+            <Scene triggerElement=".projects-title" duration={300}>
+              <Tween to={{ y: '50px' }} duration={2} ease="back.out(1.7)">
+                <Heading
+                  width={{ base: 'full', md: 'full' }}
+                  fontWeight="light"
+                  text="center"
+                  size="sm"
+                  className="projects-title"
+                >
+                  <Text fontWeight="semibold">Selected Project.</Text>
+                  All work, all play
+                </Heading>
+              </Tween>
+            </Scene>
+
+            <Scene triggerElement=".projects-garis" duration={300}>
+              <Tween
+                from={{ y: '50px' }}
+                to={{ y: '-20px', opacity: '0', height: '50px' }}
+                duration={1}
+                ease="back.out(1.7)"
+              >
+                <Box position="relative" height="150px" className="projects-garis">
+                  <Box
+                    position="absolute"
+                    left="50%"
+                    borderLeft="2px"
+                    height="100%"
+                    transform="translate(-50%, 50px)"
+                  ></Box>
+                </Box>
+              </Tween>
+            </Scene>
+          </Controller>
         </Flex>
       </Container>
 
@@ -97,10 +120,19 @@ export default function Home(props) {
           <Box w={{ base: 'full', md: '1/2' }} h="50px" p="15px">
             <Box w="full" h="full"></Box>
           </Box>
-          {project.map((map) => {
+          {projects.results.map((project, i) => {
             return (
-              <Box w={{ base: 'full', md: '1/2' }} h={map * 200 + 'px'} p="15px">
+              <Box
+                key={project.id}
+                w={{ base: 'full', md: '1/2' }}
+                h={'400px'}
+                // masih bisa diimprove
+                pl={i % 2 == 0 ? '15px' : ''}
+                pr={i % 2 == 0 ? '' : '15px'}
+                py="15px"
+              >
                 <Box w="full" h="full" bg="black"></Box>
+                {project.data.title[0].text}
               </Box>
             );
           })}
