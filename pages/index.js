@@ -5,9 +5,12 @@ import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
 import { client } from '../prismic-configuration';
 
+// AnehAneh
+import Masonry from 'react-masonry-component';
+
 // Data
-const stacks = ['PHP', 'Javascript'];
-const project = ['1', '2', '3', '4'];
+let stacks = ['PHP', 'Javascript'];
+let project = ['1', '2', '3', '4'];
 const Stack = ({ stack, children, i }) => {
   return (
     <>
@@ -90,23 +93,18 @@ export default function Home(props) {
       </Container>
 
       <Container maxW="xl">
-        <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-          {project.map((map) => {
-            return <Box w="100%" h="300px" bg="blue.500" />;
-          })}
-        </Grid>
-      </Container>
-
-      <Container maxW="xl">
-        <Flex direction="row" flexWrap="wrap" py={5}>
+        <Masonry options={{ transitionDuration: 3 }}>
+          <Box w={{ base: 'full', md: '1/2' }} h="50px" p="15px">
+            <Box w="full" h="full"></Box>
+          </Box>
           {project.map((map) => {
             return (
-              <Box w="1/2" h={map * 100 + 'px'} p="15px">
+              <Box w={{ base: 'full', md: '1/2' }} h={map * 200 + 'px'} p="15px">
                 <Box w="full" h="full" bg="black"></Box>
               </Box>
             );
           })}
-        </Flex>
+        </Masonry>
       </Container>
     </>
   );
