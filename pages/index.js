@@ -1,4 +1,5 @@
 import { Container, Flex, Box, Heading, Link, Text, Grid } from '@chakra-ui/core';
+import { useRemoteData, useEffect } from 'react';
 
 // Dynamic Data
 import Prismic from 'prismic-javascript';
@@ -6,11 +7,20 @@ import { RichText, Date } from 'prismic-reactjs';
 import { client } from '../prismic-configuration';
 
 // Masonry
-import Masonry from 'react-masonry-component';
+// import Masonry from 'react-masonry-component';
+import Masonry from 'react-masonry-css';
 
 // Animasi
 import { Controller, Scene } from 'react-scrollmagic';
 import { Controls, PlayState, Tween } from 'react-gsap';
+
+// Image handler
+import LazyLoad from 'react-lazyload';
+import { Image } from '@chakra-ui/core';
+import OnImagesLoaded from 'react-on-images-loaded';
+
+// lodash
+import { hasIn } from 'lodash';
 
 // Data
 const Stack = ({ stack, children, i }) => {
@@ -39,8 +49,9 @@ export async function getStaticProps() {
   const home = await client.getSingle('homepage');
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
-    pageSize: 3
+    pageSize: 6
   });
+
   return {
     props: {
       home,
@@ -55,6 +66,15 @@ export default function Home({ home, projects }) {
 
   let projectDummy = ['1', '2', '3', '4'];
   let stacks = home.data.stacks;
+
+  // const { data, loading, error } = useRemoteData();
+
+  // console.log(loading);
+
+  // useEffect(() => {
+  //   console.log('im loaded');
+  //   this.masonry.on('layoutComplete', this.handleLayoutComplete);
+  // });
 
   return (
     <>
@@ -98,7 +118,7 @@ export default function Home({ home, projects }) {
                 from={{ y: '50px' }}
                 to={{ y: '-20px', opacity: '0', height: '50px' }}
                 duration={1}
-                ease="back.out(1.7)"
+                // ease="back.out(1.7)"
               >
                 <Box position="relative" height="150px" className="projects-garis">
                   <Box
@@ -116,27 +136,67 @@ export default function Home({ home, projects }) {
       </Container>
 
       <Container maxW="xl">
-        <Masonry options={{ transitionDuration: 3 }}>
-          <Box w={{ base: 'full', md: '1/2' }} h="50px" p="15px">
+        {/* <OnImagesLoaded
+          onLoaded={() => {
+            console.log('loaded images fungsi onimageloaded');
+          }}
+        >
+          <Masonry
+            options={{ transitionDuration: 3 }}
+            disableImagesLoaded={true}
+            updateOnEachImageLoad={false}
+            imagesLoadedOptions={{ background: '.gambar-mason' }}
+          > */}
+        <Masonry breakpointCols={2} className="masonry" columnClassName="masonry--column">
+          {/* array of JSX items */}
+
+          {/* <Box w={{ base: 'full', md: '1/2' }} h="50px" p="15px">
             <Box w="full" h="full"></Box>
-          </Box>
+          </Box> */}
           {projects.results.map((project, i) => {
+            let existHeight = hasIn(
+              { project },
+              'project.data.featured_image.tablet.dimensions.height'
+            );
+            let height;
+            // if exist lodash
+            if (existHeight) {
+              height = project.data.featured_image.tablet.dimensions.height;
+            }
+
+            let staticHeight = (i + 3) * 2 + '00px';
+
             return (
               <Box
                 key={project.id}
-                w={{ base: 'full', md: '1/2' }}
-                h={'400px'}
+                w={{ base: 'full', md: 'full' }}
                 // masih bisa diimprove
                 pl={i % 2 == 0 ? '15px' : ''}
                 pr={i % 2 == 0 ? '' : '15px'}
                 py="15px"
               >
                 <Box w="full" h="full" bg="black"></Box>
+                {/* <LazyLoad height={existHeight ? height : staticHeight}> */}
+                <Image
+                  className="gambar-mason"
+                  src={
+                    existHeight
+                      ? project.data.featured_image.tablet.url
+                      : 'https://via.placeholder.com/1000x' + (i + 3) * 2 + '00'
+                  }
+                  alt=""
+                  onLoad={() => {
+                    console.log('loaded single masonry');
+                  }}
+                />
+                {/* </LazyLoad> */}
                 {project.data.title[0].text}
               </Box>
             );
           })}
         </Masonry>
+        {/* </Masonry>
+        </OnImagesLoaded> */}
       </Container>
     </>
   );

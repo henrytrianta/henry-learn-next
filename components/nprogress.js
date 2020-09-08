@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import nprogress from 'nprogress';
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash';
 
 // Only show nprogress after 500ms (slow loading)
 const start = debounce(nprogress.start, 500);
