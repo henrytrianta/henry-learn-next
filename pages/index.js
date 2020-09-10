@@ -2,12 +2,12 @@ import { Container, Flex, Box, Heading, Link, Text, Grid, Icon } from '@chakra-u
 import { useRemoteData, useEffect } from 'react';
 
 // Component
-import MasonryComponent from '../components/Masonry';
+import MasonryComponent from '@/components/Masonry';
 
 // Dynamic Data
 import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
-import { client } from '../prismic-configuration';
+import { Client } from '@/utils/prismicHelpers';
 
 // Masonry
 // import Masonry from 'react-masonry-component';
@@ -43,36 +43,32 @@ const Stack = ({ stack, children, i }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps({ preview = null, previewData = {} }) {
+  const { ref } = previewData;
+
+  const client = Client();
+
   const home = await client.getSingle('homepage');
+
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
-    pageSize: 3
+    pageSize: 3,
+    ...(ref ? { ref } : null)
   });
 
   return {
     props: {
       home,
-      projects
+      projects: projects ? projects.results : [],
+      preview
     }
   };
 }
 
 const Home = ({ home, projects }) => {
-  console.log(home);
-  console.log(projects);
-
-  let projectDummy = ['1', '2', '3', '4'];
+  // console.log(home);
+  // console.log(projects);
   let stacks = home.data.stacks;
-
-  // const { data, loading, error } = useRemoteData();
-
-  // console.log(loading);
-
-  // useEffect(() => {
-  //   console.log('im loaded');
-  //   this.masonry.on('layoutComplete', this.handleLayoutComplete);
-  // });
 
   return (
     <>
@@ -133,7 +129,7 @@ const Home = ({ home, projects }) => {
         </Flex>
       </Container>
 
-      <MasonryComponent projects={projects} nobutton={true} />
+      <MasonryComponent projects={projects} buttonmore={true} />
     </>
   );
 };

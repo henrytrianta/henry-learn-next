@@ -24,6 +24,7 @@
     "react-gsap": "^2.2.1",
     "react-lazyload": "^3.0.0",
     "react-masonry-css": "^1.0.14",
-    "react-scrollmagic": "^2.2.0"
+    "react-scrollmagic": "^2.2.0",
+    "swr": "^0.3.2"
   }
 }

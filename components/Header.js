@@ -4,7 +4,7 @@ import { ScaleFade } from '@chakra-ui/transition';
 import { useRouter } from 'next/router';
 
 // Assets
-import Logo from '../components/Icons/Logo';
+import Logo from '@/components/Icons/Logo';
 
 // sementara hardcore
 const menus = [

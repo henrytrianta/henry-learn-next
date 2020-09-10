@@ -8,16 +8,16 @@ import { hasIn } from 'lodash';
 const ButtonMore = () => {
   return (
     <Box w={{ base: 'full' }} display="flex" justifyContent="center" py="25px">
-      <Link as={NextLink} href="/work">
+      <NextLink href="/works">
         <Link fontWeight="700" my="20px">
           SEE ALL PROJECT
         </Link>
-      </Link>
+      </NextLink>
     </Box>
   );
 };
 
-const MasonryComponent = ({ projects, nobutton = true }) => {
+const MasonryComponent = ({ projects, buttonmore = true }) => {
   return (
     <Container maxW="xl">
       <Masonry
@@ -25,7 +25,7 @@ const MasonryComponent = ({ projects, nobutton = true }) => {
         className="masonry"
         columnClassName="masonry--column"
       >
-        {projects.results.map((project, i) => {
+        {projects.map((project, i) => {
           let existHeight = hasIn(
             { project },
             'project.data.featured_image.tablet.dimensions.height'
@@ -60,7 +60,7 @@ const MasonryComponent = ({ projects, nobutton = true }) => {
           );
         })}
       </Masonry>
-      {nobutton ? <ButtonMore /> : ''}
+      {buttonmore ? <ButtonMore /> : ''}
     </Container>
   );
 };

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 // Data Dynamic
 import Prismic from 'prismic-javascript';
-import { client } from '../../prismic-configuration';
+import { client } from '@/prismic-configuration';
 
 export async function getStaticProps() {
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {

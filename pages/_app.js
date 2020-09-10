@@ -3,8 +3,8 @@ import { ChakraProvider } from '@chakra-ui/core';
 import Nprogress from '@/components/nprogress';
 import theme from '@/design-system';
 import { DefaultSeo } from 'next-seo';
-import SEO from '../next-seo.config';
-import Header from '../components/Header';
+import SEO from '@/next-seo.config';
+import Header from '@/components/Header';
 import GoogleFonts from 'next-google-fonts';
 
 const App = ({ Component, pageProps }) => {
