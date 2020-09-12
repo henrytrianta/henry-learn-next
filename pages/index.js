@@ -17,7 +17,6 @@ import { Controller, Scene } from 'react-scrollmagic';
 import { Controls, PlayState, Tween } from 'react-gsap';
 
 // Image handler
-import LazyLoad from 'react-lazyload';
 import { Image } from '@chakra-ui/core';
 
 // Data

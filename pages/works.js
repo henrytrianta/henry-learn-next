@@ -13,7 +13,7 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
 
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
-    pageSize: 3,
+    pageSize: 100,
     ...(ref ? { ref } : null)
   });
 

@@ -5,6 +5,8 @@ import NextLink from 'next/link';
 // lodash
 import { hasIn } from 'lodash';
 
+import LazyLoad from 'react-lazyload';
+
 const ButtonMore = () => {
   return (
     <Box w={{ base: 'full' }} display="flex" justifyContent="center" py="25px">
@@ -37,24 +39,25 @@ const MasonryComponent = ({ projects, buttonmore = true }) => {
           }
 
           let staticHeight = (i + 3) * 2 + '00px';
+          // console.log(staticHeight);
+          console.log(height);
 
           return (
-            <Box key={project.id} w={{ base: 'full', md: 'full' }}>
-              <Box w="full" h="full" bg="black"></Box>
-              {/* <LazyLoad height={existHeight ? height : staticHeight}> */}
-              <Image
-                className="gambar-mason"
-                src={
-                  existHeight
-                    ? project.data.featured_image.tablet.url
-                    : 'https://via.placeholder.com/1000x' + (i + 3) * 2 + '00'
-                }
-                alt=""
-                onLoad={() => {
-                  console.log('loaded single masonry');
-                }}
-              />
-              {/* </LazyLoad> */}
+            <Box key={project.id} w="full">
+              <LazyLoad height={existHeight ? height : staticHeight}>
+                <Image
+                  className="gambar-mason"
+                  src={
+                    existHeight
+                      ? project.data.featured_image.tablet.url
+                      : 'https://via.placeholder.com/1000x' + (i + 3) * 2 + '00'
+                  }
+                  alt=""
+                  onLoad={() => {
+                    console.log('loaded single masonry');
+                  }}
+                />
+              </LazyLoad>
               {project.data.title[0].text}
             </Box>
           );

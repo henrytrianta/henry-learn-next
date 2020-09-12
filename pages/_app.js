@@ -6,6 +6,7 @@ import { DefaultSeo } from 'next-seo';
 import SEO from '@/next-seo.config';
 import Header from '@/components/Header';
 import GoogleFonts from 'next-google-fonts';
+import Footer from '@/components/Footer';
 
 const App = ({ Component, pageProps }) => {
   return (
@@ -19,6 +20,7 @@ const App = ({ Component, pageProps }) => {
         <Nprogress />
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </ChakraProvider>
     </>
   );
