@@ -1,0 +1,34 @@
+.masonry {
+  display: flex;
+  width: 100%;
+}
+
+.masonryColumn {
+  background-clip: padding-box;
+}
+
+.masonryColumn:first-of-type {
+  padding-right: 15px;
+}
+
+.masonryColumn:last-child {
+  padding-left: 15px;
+}
+
+.masonryColumn > div {
+  margin-bottom: 20px;
+}
+
+.supportLazy > img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.blur-up {
+  filter: blur(100px);
+  transition: filter 400ms, -webkit-filter 400ms;
+}
+
+.blur-up.lazyloaded {
+  filter: blur(0);
+}

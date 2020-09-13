@@ -12,6 +12,7 @@
     "@chakra-ui/theme": "^1.0.0-rc.3",
     "@chakra-ui/theme-tools": "^1.0.0-rc.3",
     "gsap": "^3.5.1",
+    "lazysizes": "^5.2.2",
     "lodash": "^4.17.20",
     "next": "9.5.2",
     "next-google-fonts": "^1.2.1",
@@ -23,7 +24,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-gsap": "^2.2.1",
-    "react-lazyload": "^3.0.0",
+    "react-icons": "^3.11.0",
+    "react-imgix": "^9.0.2",
     "react-masonry-css": "^1.0.14",
     "react-scrollmagic": "^2.2.0",
     "swr": "^0.3.2"

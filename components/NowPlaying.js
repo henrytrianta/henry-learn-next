@@ -2,6 +2,9 @@ import React from 'react';
 import useSWR from 'swr';
 import { Box, Link, Stack, Image, Text, Icon, Skeleton, useColorMode } from '@chakra-ui/core';
 
+// Icon
+import { RiSpotifyLine } from 'react-icons/ri';
+
 import fetcher from '@/lib/fetcher';
 
 const NowPlaying = () => {
@@ -40,6 +43,7 @@ const NowPlaying = () => {
         display="flex"
         flexDirection="column"
         ml={3}
+        flexGrow={1}
       >
         <Link
           fontWeight="medium"
@@ -63,7 +67,7 @@ const NowPlaying = () => {
           {data && (data?.artist || 'Spotify')}
         </Text>
       </Stack>
-      <Icon name="spotify" ml="auto" mt={1} />
+      <Icon as={RiSpotifyLine} />
     </Box>
   );
 };

@@ -4,7 +4,10 @@ import { useRouter } from 'next/router';
 import Prismic from 'prismic-javascript';
 import { client } from '@/prismic-configuration';
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
+  const { uid } = params;
+  console.log(uid);
+
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
     pageSize: 2
@@ -36,7 +39,8 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-const Page = ({ projects }) => {
+const Page = ({ projects, params }) => {
+  console.log(params);
   const router = useRouter();
   console.log(router);
   console.log(projects);

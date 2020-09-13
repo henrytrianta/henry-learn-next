@@ -1,39 +1,39 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Flex, Link, IconButton } from '@chakra-ui/core';
+import { Flex, Link, Box, Icon } from '@chakra-ui/core';
 
 import NowPlaying from '@/components/NowPlaying';
+
+// Icon
+import {
+  RiLinkedinLine,
+  RiGithubLine,
+  RiMailLine,
+  RiTwitterLine,
+  RiFacebookLine
+} from 'react-icons/ri';
 
 const Footer = () => (
   <Flex align="center" mb={4} direction="column">
     <NowPlaying />
-    <div>
-      <Link href="https://twitter.com/henrytrianta" title="Twitter" isExternal>
-        <IconButton
-          aria-label="Twitter"
-          icon="twitter"
-          size="lg"
-          color="gray.500"
-          variant="ghost"
-        />
+    <Box mb="15px">
+      <Link href="https://facebook.com/henrytrianta" title="Facebook" isExternal mx="10px">
+        <Icon as={RiFacebookLine} fill="red" />
       </Link>
-      <Link href="https://github.com/henrytrianta" title="GitHub" isExternal>
-        <IconButton aria-label="GitHub" icon="github" size="lg" color="gray.500" variant="ghost" />
+      <Link href="https://twitter.com/henrytrianta" title="Twitter" isExternal mx="10px">
+        <Icon as={RiTwitterLine} fill="red" />
       </Link>
-      <Link href="https://www.linkedin.com/in/henrytrianta" title="LinkedIn" isExternal>
-        <IconButton
-          aria-label="LinkedIn"
-          icon="linkedin"
-          size="lg"
-          color="gray.500"
-          variant="ghost"
-        />
+      <Link href="https://github.com/henrytrianta" title="GitHub" isExternal mx="10px">
+        <Icon as={RiGithubLine} fill="red" />
       </Link>
-      <Link href="mailto:me@henrytrianta.io" title="Email" isExternal>
-        <IconButton aria-label="Email" icon="mail" size="lg" color="gray.500" variant="ghost" />
+      <Link href="https://www.linkedin.com/in/henrytrianta" title="LinkedIn" isExternal mx="10px">
+        <Icon as={RiLinkedinLine} fill="red" />
       </Link>
-    </div>
-    <div>
+      <Link href="mailto:hello@henry.pm" title="Email" isExternal mx="10px">
+        <Icon as={RiMailLine} fill="red" />
+      </Link>
+    </Box>
+    <Box>
       <NextLink href="/uses" passHref>
         <Link fontSize="sm" color="gray.500" minWidth="100px" mr={2} title="Uses">
           /uses
@@ -44,7 +44,7 @@ const Footer = () => (
         color="gray.500"
         minWidth="100px"
         mr={2}
-        href="https://photos.leerob.io/"
+        href="https://photos.henry.pm/"
         title="Photos"
         isExternal
       >
@@ -55,7 +55,7 @@ const Footer = () => (
           /newsletter
         </Link>
       </NextLink>
-    </div>
+    </Box>
   </Flex>
 );
 

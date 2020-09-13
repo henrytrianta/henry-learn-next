@@ -1,4 +1,4 @@
-import { Container, Flex, Box, Heading, Link, Text, Grid, Icon } from '@chakra-ui/core';
+import { Container, Flex, Box, Heading, Link, Text, Grid, Icon, Button } from '@chakra-ui/core';
 import { useRemoteData, useEffect } from 'react';
 
 // Component
@@ -51,7 +51,7 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
 
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
-    pageSize: 3,
+    pageSize: 4,
     ...(ref ? { ref } : null)
   });
 

@@ -8,7 +8,7 @@ import Logo from '@/components/Icons/Logo';
 
 // sementara hardcore
 const menus = [
-  { menu: 'work', link: '/work' },
+  { menu: 'works', link: '/works' },
   { menu: 'about', link: '/about' },
   { menu: 'contact', link: '/contact' }
 ];

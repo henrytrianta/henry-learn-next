@@ -25,24 +25,7 @@ const styles = {
     },
     fontFeatureSettings: `'kern'`,
     textRendering: 'optimizeLegibility',
-    WebkitFontSmoothing: 'antialiased',
-    // masonry
-    '.masonry': {
-      d: 'flex',
-      w: '100%',
-      '&--column': {
-        backgroundClip: 'padding-box',
-        '&:first-of-type': {
-          pr: '15px'
-        },
-        '&:last-child': {
-          pl: '15px'
-        },
-        '> div': {
-          mb: '20px'
-        }
-      }
-    }
+    WebkitFontSmoothing: 'antialiased'
   })
 };
 
