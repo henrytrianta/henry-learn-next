@@ -13,20 +13,29 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
 
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
-    pageSize: 100,
+    pageSize: 4,
     ...(ref ? { ref } : null)
   });
+
+  const pathni = projects.total_pages;
+  let pathstatic = [];
+  let i;
+  for (i = 0; i < pathni; i++) {
+    pathstatic.push(i+1);
+  }
+  let pathmap = pathstatic.map(doc => `/blog/${doc}`);
 
   return {
     props: {
       projects: projects ? projects.results : [],
-      preview
+      preview,
+      debug: pathmap,
     }
   };
 }
 
-const Works = ({ projects }) => {
-  console.log(projects);
+const Works = ({ projects, debug }) => {
+  console.log(debug);
   return (
     <>
       <Container maxW="xl">

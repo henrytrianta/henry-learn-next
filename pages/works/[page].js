@@ -1,83 +1,100 @@
-import { useRouter } from 'next/router';
-import useSWR from 'swr';
-
-// Data Dynamic
+import { Container, Flex, Box, Heading, Link, Text } from '@chakra-ui/core';
+// Dynamic Data
 import Prismic from 'prismic-javascript';
-import { client } from '@/prismic-configuration';
-import { useEffect } from 'react';
+import { RichText, Date } from 'prismic-reactjs';
+import { Client } from '@/utils/prismicHelpers';
 
-// export async function getStaticProps() {
-//   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
-//     orderings: '[my.project.date desc]',
-//     pageSize: 100
-//   });
+import Masonry from '@/components/Masonry';
+import ReactPaginate from 'react-paginate';
+import Router, { withRouter, useRouter } from 'next/router';
+import styles from './pagination.module.css';
 
-//   return {
-//     props: {
-//       projects
-//     }
-//   };
-// }
+export async function getStaticProps({ preview = null, previewData = {}, params }) {
+  const { ref } = previewData;
 
-// export async function getStaticPaths() {
-//   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
-//     orderings: '[my.project.date desc]',
-//     pageSize: 100
-//   });
+  const client = Client();
 
-//   // Henry - copas from next documentation
-//   // Get the paths we want to pre-render based on posts
-//   // const paths = projects.map((post) => `/posts/${post.id}`);
-//   // const paths = ['/work/1'];
-//   const paths = projects.results.map((project) => {
-//     return `/works/${project.uid}`;
-//   });
+  const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
+    orderings: '[my.project.date desc]',
+    pageSize: 4,
+    page: params.page,
+    ...(ref ? { ref } : null)
+  });
 
-//   // We'll pre-render only these paths at build time.
-//   // { fallback: false } means other routes should 404.
-//   return { paths, fallback: true };
-// }
+  return {
+    props: {
+      projects: projects ? projects.results : [],
+      totalpages: projects ? projects.total_pages : [],
+      preview,
+      params
+    }
+  };
+}
 
-const Page = ({ projects, joke }, props) => {
-  const router = useRouter();
+export async function getStaticPaths() {
+  const client = Client();
 
-  async function fetcher() {
-    await client.query(Prismic.Predicates.at('document.type', 'project'), {
-      orderings: '[my.project.date desc]',
-      pageSize: 100
-    });
+  const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
+    orderings: '[my.project.date desc]',
+    pageSize: 4
+    // ...(ref ? { ref } : null)
+  });
+
+  const pathni = projects.total_pages;
+  let pathstatic = [];
+  let i;
+  for (i = 0; i < pathni; i++) {
+    pathstatic.push(i + 1);
   }
 
-  //   const { data } = useSWR('', fetcher);
+  return {
+    paths: pathstatic.map((i) => `/works/${i}`),
+    fallback: false
+  };
+}
 
-  console.log(fetcher);
+const Works = ({ projects, params, totalpages }) => {
+  console.log(params);
+  const router = useRouter();
 
   return (
     <>
-      <div>Test</div>
-      <div>UID : {router.query.page}</div>
-      <div>Joke : {joke}</div>
-      {/* <MasonryComponent projects={projects} /> */}
+      <Container maxW="xl">
+        <Flex direction="row" py={24}>
+          <Heading width={{ base: 'full', md: '4/5' }} size="lg" fontWeight="light">
+            Work page
+          </Heading>
+        </Flex>
+      </Container>
+
+      <Masonry projects={projects} buttonmore={false} />
+
+      <ReactPaginate
+        previousLabel={'<'}
+        nextLabel={'>'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        activeClassName={'active'}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        // initialPage={params.page - 1}
+        pageCount={totalpages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        forcePage={params.page}
+        // onPageChange={pagginationHandler}
+        onPageChange={(page) => router.push('/works/' + (page.selected + 1))}
+        containerClassName={styles.paginateWrap}
+        subContainerClassName={styles.paginateInner}
+        pageClassName={styles.paginateLi}
+        pageLinkClassName={styles.paginateA}
+        activeClassName={styles.paginateActive}
+        nextLinkClassName={styles.paginateNextA}
+        previousLinkClassName={styles.paginatePrevA}
+        breakLinkClassName={styles.paginateBreakA}
+      />
     </>
   );
 };
 
-// Joke
-// This gets called on every request
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const rsp = await fetch('https://api.icndb.com/jokes/random'),
-    data = await rsp.json();
-  const joke = data.value.joke;
-
-  // Pass data to the page via props
-  return { props: { joke } };
-}
-
-async function fetchQuote() {
-  const rsp = await fetch('https://api.icndb.com/jokes/random'),
-    data = await rsp.json();
-  return { props: { data } };
-}
-
-export default Page;
+export default Works;

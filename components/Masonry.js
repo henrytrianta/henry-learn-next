@@ -59,7 +59,7 @@ const MasonryComponent = ({ projects, buttonmore = true }) => {
           let staticHeightWithoutPX = (i + 3) * 2 + '00';
 
           return (
-            <NextLink key={project.id} href={`/work/${project.uid}`} passHref={true}>
+            <NextLink href="/works" key={project.id} href={`/work/${project.uid}`} passHref>
               <Box
                 w="full"
                 mt={i == 0 ? '50px' : ''}
