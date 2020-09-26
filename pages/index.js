@@ -31,7 +31,8 @@ const Stack = ({ stack, children, i }) => {
         <Box
           key={i}
           position="absolute"
-          bg="highlight"
+          bg="palletGoldHard"
+          opacity="0.3"
           width="90%"
           height="16px"
           left="0"
@@ -89,7 +90,7 @@ const Home = ({ home, projects }) => {
       </Container>
 
       <Container maxW="xl" centerContent>
-        <Flex direction="column" align="center" py={5} bg="white" zIndex="1">
+        <Flex direction="column" align="center" py={5} zIndex="1">
           <Controller>
             <Scene triggerElement=".projects-title" duration={300}>
               <Tween to={{ y: '50px' }} duration={2} ease="back.out(1.7)">

@@ -28,7 +28,7 @@ const Nprogress = () => (
 
       #nprogress .bar {
         position: fixed;
-        background: #0070f3;
+        background: #e6af2e;
         z-index: 1031;
         top: 0;
         left: 0;
@@ -43,7 +43,7 @@ const Nprogress = () => (
         right: 0px;
         width: 100px;
         height: 100%;
-        box-shadow: 0 0 10px #0070f3, 0 0 5px #0070f3;
+        box-shadow: 0 0 10px #e6af2e, 0 0 5px #e6af2e;
         opacity: 1;
 
         -webkit-transform: rotate(3deg) translate(0px, -4px);

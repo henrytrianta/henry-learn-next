@@ -1,9 +1,12 @@
 const colors = {
+  palletWhite: '#f8f8f8',
+  palletGoldSoft: '#f5d061',
+  palletGoldHard: '#e6af2e',
+  palletBlue: '#282f44',
   transparent: 'transparent',
   current: 'currentColor',
   black: '#000000',
   white: '#ffffff',
-  highlight: 'rgba(142,255,191,0.3)',
   whiteAlpha: {
     50: 'rgba(255, 255, 255, 0.04)',
     100: 'rgba(255, 255, 255, 0.06)',

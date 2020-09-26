@@ -1,7 +1,7 @@
 import { Container, Box, Heading, Flex, Link, Text, useDisclosure } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import { ScaleFade } from '@chakra-ui/transition';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 // Assets
 import Logo from '@/components/Icons/Logo';
@@ -24,8 +24,34 @@ const MenuItems = ({ children, link, isOpen, styles, onClose }) => {
         mt={{ base: 4, md: 0 }}
         ml={isOpen ? '0' : '6'}
         display="block"
-        onClick={onClose}
-        textDecoration={pathnow === link ? 'underline' : ''}
+        onClick={Router.events.on('routeChangeComplete', (url) => {
+          onClose;
+        })}
+        _after={
+          pathnow === link
+            ? {
+                content: '""',
+                position: 'absolute',
+                bottom: '0',
+                left: '0',
+                height: '2px',
+                background: 'palletGoldHard',
+                width: '100%'
+              }
+            : ''
+        }
+        position="relative"
+        _hover={{
+          _after: {
+            content: '""',
+            position: 'absolute',
+            bottom: '0',
+            left: '0',
+            height: '2px',
+            background: 'palletGoldHard',
+            width: '100%'
+          }
+        }}
       >
         {children}
       </Link>

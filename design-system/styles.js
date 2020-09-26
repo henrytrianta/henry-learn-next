@@ -6,12 +6,13 @@ const styles = {
     body: {
       fontFamily: 'body',
       color: mode('gray.700', 'whiteAlpha.900')(props),
-      bg: mode('white', 'gray.800')(props),
+      bg: mode('palletWhite', 'white')(props),
       lineHeight: 'normal',
       minHeight: 'full'
     },
     '*::placeholder': {
-      color: mode('gray.400', 'whiteAlpha.400')(props)
+      color: mode('gray.400', 'whiteAlpha.400')(props),
+      fontSize: 'sm'
     },
     '*, *::before, &::after': {
       borderColor: mode('gray.200', 'whiteAlpha.300')(props),
