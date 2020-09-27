@@ -3,9 +3,10 @@ import { Container, Flex, Box, Heading, Link, Text } from '@chakra-ui/core';
 import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
 import { Client } from '@/utils/prismicHelpers';
-
+import Router, { withRouter, useRouter } from 'next/router';
 import Masonry from '@/components/Masonry';
 import ReactPaginate from 'react-paginate';
+import styles from '@/components/CSSModule/Pagination.module.css';
 
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
@@ -30,12 +31,14 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
     props: {
       projects: projects ? projects.results : [],
       preview,
-      debug: pathmap
+      debug: pathmap,
+      totalpages: pathni
     }
   };
 }
 
-const Works = ({ projects, debug }) => {
+const Works = ({ projects, debug, totalpages }) => {
+  const router = useRouter();
   return (
     <>
       <Container maxW="xl">
@@ -60,7 +63,7 @@ const Works = ({ projects, debug }) => {
         pageCount={totalpages}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
-        forcePage={params.page}
+        forcePage={0}
         // onPageChange={pagginationHandler}
         onPageChange={(page) => router.push('/works/' + (page.selected + 1))}
         containerClassName={styles.paginateWrap}

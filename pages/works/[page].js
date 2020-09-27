@@ -7,7 +7,7 @@ import { Client } from '@/utils/prismicHelpers';
 import Masonry from '@/components/Masonry';
 import ReactPaginate from 'react-paginate';
 import Router, { withRouter, useRouter } from 'next/router';
-import styles from './pagination.module.css';
+import styles from '@/components/CSSModule/Pagination.module.css';
 import { useEffect } from 'react';
 
 export async function getStaticProps({ preview = null, previewData = {}, params }) {
@@ -60,7 +60,8 @@ const Works = ({ projects, params, totalpages }) => {
 
   useEffect(() => {
     if (params.page == '1') {
-      router.push('/works/');
+      // router.push('/works/');
+      router.push('/works', undefined, { shallow: true });
     }
   });
 
@@ -88,7 +89,7 @@ const Works = ({ projects, params, totalpages }) => {
         pageCount={totalpages}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
-        forcePage={params.page}
+        forcePage={params.page - 1}
         // onPageChange={pagginationHandler}
         onPageChange={(page) => router.push('/works/' + (page.selected + 1))}
         containerClassName={styles.paginateWrap}
