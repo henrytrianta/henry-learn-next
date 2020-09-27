@@ -37,7 +37,7 @@ const ButtonMore = () => {
 };
 
 const MasonryComponent = ({ projects, buttonmore = true }) => {
-  console.log(projects);
+  // console.log(projects);
   return (
     <Container maxW="xl">
       <Masonry

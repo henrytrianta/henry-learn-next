@@ -48,7 +48,7 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
 
   const client = Client();
 
-  const home = await client.getSingle('homepage');
+  const home = (await client.getSingle('homepage', ref ? { ref } : null)) || {};
 
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
@@ -66,8 +66,6 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
 }
 
 const Home = ({ home, projects }) => {
-  // console.log(home);
-  // console.log(projects);
   let stacks = home.data.stacks;
 
   return (

@@ -14,7 +14,7 @@ import {
 } from 'react-icons/ri';
 
 const Footer = () => (
-  <Flex align="center" mb={4} direction="column">
+  <Flex align="center" mt="24" mb="4" direction="column">
     <NowPlaying />
     <Box mb="15px">
       <Link href="https://facebook.com/henrytrianta" title="Facebook" isExternal mx="10px">

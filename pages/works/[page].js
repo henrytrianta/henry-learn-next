@@ -8,6 +8,7 @@ import Masonry from '@/components/Masonry';
 import ReactPaginate from 'react-paginate';
 import Router, { withRouter, useRouter } from 'next/router';
 import styles from './pagination.module.css';
+import { useEffect } from 'react';
 
 export async function getStaticProps({ preview = null, previewData = {}, params }) {
   const { ref } = previewData;
@@ -56,6 +57,12 @@ export async function getStaticPaths() {
 const Works = ({ projects, params, totalpages }) => {
   console.log(params);
   const router = useRouter();
+
+  useEffect(() => {
+    if (params.page == '1') {
+      router.push('/works/');
+    }
+  });
 
   return (
     <>

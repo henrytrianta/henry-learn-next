@@ -2,6 +2,7 @@ import { Container, Box, Heading, Flex, Link, Text, useDisclosure } from '@chakr
 import NextLink from 'next/link';
 import { ScaleFade } from '@chakra-ui/transition';
 import Router, { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 // Assets
 import Logo from '@/components/Icons/Logo';
@@ -16,6 +17,9 @@ const menus = [
 const MenuItems = ({ children, link, isOpen, styles, onClose }) => {
   const router = useRouter();
   const pathnow = router.pathname;
+
+  // need to improve the sidebar is only closed when the page is loaded
+
   return (
     <NextLink href={link} passHref>
       <Link
@@ -24,9 +28,7 @@ const MenuItems = ({ children, link, isOpen, styles, onClose }) => {
         mt={{ base: 4, md: 0 }}
         ml={isOpen ? '0' : '6'}
         display="block"
-        onClick={Router.events.on('routeChangeComplete', (url) => {
-          onClose;
-        })}
+        onClick={onClose}
         _after={
           pathnow === link
             ? {

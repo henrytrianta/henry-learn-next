@@ -5,6 +5,7 @@ import { RichText, Date } from 'prismic-reactjs';
 import { Client } from '@/utils/prismicHelpers';
 
 import Masonry from '@/components/Masonry';
+import ReactPaginate from 'react-paginate';
 
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
@@ -21,21 +22,20 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
   let pathstatic = [];
   let i;
   for (i = 0; i < pathni; i++) {
-    pathstatic.push(i+1);
+    pathstatic.push(i + 1);
   }
-  let pathmap = pathstatic.map(doc => `/blog/${doc}`);
+  let pathmap = pathstatic.map((doc) => `/blog/${doc}`);
 
   return {
     props: {
       projects: projects ? projects.results : [],
       preview,
-      debug: pathmap,
+      debug: pathmap
     }
   };
 }
 
 const Works = ({ projects, debug }) => {
-  console.log(debug);
   return (
     <>
       <Container maxW="xl">
@@ -47,6 +47,31 @@ const Works = ({ projects, debug }) => {
       </Container>
 
       <Masonry projects={projects} buttonmore={false} />
+
+      <ReactPaginate
+        previousLabel={'<'}
+        nextLabel={'>'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        activeClassName={'active'}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        // initialPage={params.page - 1}
+        pageCount={totalpages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        forcePage={params.page}
+        // onPageChange={pagginationHandler}
+        onPageChange={(page) => router.push('/works/' + (page.selected + 1))}
+        containerClassName={styles.paginateWrap}
+        subContainerClassName={styles.paginateInner}
+        pageClassName={styles.paginateLi}
+        pageLinkClassName={styles.paginateA}
+        activeClassName={styles.paginateActive}
+        nextLinkClassName={styles.paginateNextA}
+        previousLinkClassName={styles.paginatePrevA}
+        breakLinkClassName={styles.paginateBreakA}
+      />
     </>
   );
 };
