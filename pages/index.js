@@ -19,29 +19,8 @@ import { Controls, PlayState, Tween } from 'react-gsap';
 // Image handler
 import { Image } from '@chakra-ui/core';
 
-// Data
-const Stack = ({ stack, children, i }) => {
-  return (
-    <>
-      <Box key={i} position="relative" display="inline">
-        <Box key={i} display="inline">
-          {stack}
-          {children}
-        </Box>
-        <Box
-          key={i}
-          position="absolute"
-          bg="palletGoldHard"
-          opacity="0.3"
-          width="90%"
-          height="16px"
-          left="0"
-          bottom="8px"
-        ></Box>
-      </Box>
-    </>
-  );
-};
+// Highlight
+import Highlight from '@/components/Highlight';
 
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
@@ -61,7 +40,8 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
       home,
       projects: projects ? projects.results : [],
       preview
-    }
+    },
+    revalidate: 1
   };
 }
 
@@ -76,9 +56,9 @@ const Home = ({ home, projects }) => {
             {home.data.headline[0].text}{' '}
             {stacks.map((stack, i) => {
               return (
-                <Stack key={i} stack={stack.stack[0].text}>
-                  {i + 1 == stacks.length ? '. ' : ', '}
-                </Stack>
+                <Highlight key={i} divider={i + 1 == stacks.length ? '. ' : ', '}>
+                  {stack.stack[0].text}
+                </Highlight>
               );
             })}
             <br />

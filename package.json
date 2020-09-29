@@ -31,6 +31,7 @@
     "react-masonry-css": "^1.0.14",
     "react-paginate": "^6.5.0",
     "react-scrollmagic": "^2.2.0",
+    "sass": "^1.26.11",
     "swr": "^0.3.2",
     "yup": "^0.29.3"
   }

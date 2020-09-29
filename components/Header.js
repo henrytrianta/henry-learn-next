@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 // Assets
 import Logo from '@/components/Icons/Logo';
+import Highlight from './Highlight';
 
 // sementara hardcore
 const menus = [
@@ -14,50 +15,37 @@ const menus = [
   { menu: 'contact', link: '/contact' }
 ];
 
-const MenuItems = ({ children, link, isOpen, styles, onClose }) => {
+const LinkComponent = ({ children, link, isOpen, styles, onClose }) => {
+  return (
+    <Link
+      as={NextLink}
+      href={link}
+      passHref
+      {...styles}
+      fontSize={isOpen ? '25px' : ''}
+      mt={{ base: 4, md: 0 }}
+      mx={isOpen ? '0' : '5'}
+      display="block"
+      onClick={onClose}
+      position="relative"
+    >
+      {children}
+    </Link>
+  );
+};
+
+const MenuItems = (props) => {
   const router = useRouter();
   const pathnow = router.pathname;
 
-  // need to improve the sidebar is only closed when the page is loaded
+  // console.log(pathnow);
 
-  return (
-    <NextLink href={link} passHref>
-      <Link
-        {...styles}
-        fontSize={isOpen ? '25px' : ''}
-        mt={{ base: 4, md: 0 }}
-        ml={isOpen ? '0' : '6'}
-        display="block"
-        onClick={onClose}
-        _after={
-          pathnow === link
-            ? {
-                content: '""',
-                position: 'absolute',
-                bottom: '0',
-                left: '0',
-                height: '2px',
-                background: 'palletGoldHard',
-                width: '100%'
-              }
-            : ''
-        }
-        position="relative"
-        _hover={{
-          _after: {
-            content: '""',
-            position: 'absolute',
-            bottom: '0',
-            left: '0',
-            height: '2px',
-            background: 'palletGoldHard',
-            width: '100%'
-          }
-        }}
-      >
-        {children}
-      </Link>
-    </NextLink>
+  return pathnow === props.link ? (
+    <Highlight>
+      <LinkComponent {...props} />
+    </Highlight>
+  ) : (
+    <LinkComponent {...props} />
   );
 };
 

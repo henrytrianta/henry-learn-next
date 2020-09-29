@@ -39,12 +39,13 @@ const FormContact = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
             Accept: 'application/json'
           },
           body: JSON.stringify(cleanvalues)
         })
           .then(function (response) {
-            // console.log(response);
+            console.log(response);
             actions.setSubmitting(false);
             actions.resetForm({ values: '' });
             recaptchaRef.current.reset();

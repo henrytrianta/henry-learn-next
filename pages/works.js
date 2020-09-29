@@ -1,4 +1,4 @@
-import { Container, Flex, Box, Heading, Link, Text } from '@chakra-ui/core';
+import { Container, Flex, Box, Heading, Link, Text, Button } from '@chakra-ui/core';
 // Dynamic Data
 import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
@@ -6,7 +6,8 @@ import { Client } from '@/utils/prismicHelpers';
 import Router, { withRouter, useRouter } from 'next/router';
 import Masonry from '@/components/Masonry';
 import ReactPaginate from 'react-paginate';
-import styles from '@/components/CSSModule/Pagination.module.css';
+// import styles from '@/components/CSSModule/Pagination.module.css';
+import styles from '@/components/CSSModule/Pagination.module.scss';
 
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
@@ -33,7 +34,8 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
       preview,
       debug: pathmap,
       totalpages: pathni
-    }
+    },
+    revalidate: 1
   };
 }
 
@@ -52,28 +54,48 @@ const Works = ({ projects, debug, totalpages }) => {
       <Masonry projects={projects} buttonmore={false} />
 
       <ReactPaginate
-        previousLabel={'<'}
-        nextLabel={'>'}
+        // previousLabel={'PREV'}
+        previousLabel={
+          <Button
+            borderWidth="1px"
+            borderColor="lightgrey"
+            fontSize="12px"
+            borderRadius="0"
+            variant="outline"
+            _hover={{
+              color: 'palletGoldSoft',
+              bg: 'palletBlue'
+            }}
+          >
+            Prev
+          </Button>
+        }
+        nextLabel={
+          <Button
+            borderWidth="1px"
+            borderColor="lightgrey"
+            fontSize="12px"
+            borderRadius="0"
+            variant="outline"
+            _hover={{
+              color: 'palletGoldSoft',
+              bg: 'palletBlue'
+            }}
+          >
+            Next
+          </Button>
+        }
         breakLabel={'...'}
         breakClassName={'break-me'}
-        activeClassName={'active'}
-        containerClassName={'pagination'}
-        subContainerClassName={'pages pagination'}
-        // initialPage={params.page - 1}
+        activeClassName={styles.active}
+        containerClassName={styles.pagination}
+        // subContainerClassName={'pages pagination'}
         pageCount={totalpages}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
+        // Khusus di first.
         forcePage={0}
-        // onPageChange={pagginationHandler}
         onPageChange={(page) => router.push('/works/' + (page.selected + 1))}
-        containerClassName={styles.paginateWrap}
-        subContainerClassName={styles.paginateInner}
-        pageClassName={styles.paginateLi}
-        pageLinkClassName={styles.paginateA}
-        activeClassName={styles.paginateActive}
-        nextLinkClassName={styles.paginateNextA}
-        previousLinkClassName={styles.paginatePrevA}
-        breakLinkClassName={styles.paginateBreakA}
       />
     </>
   );
