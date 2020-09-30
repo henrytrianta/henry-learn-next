@@ -16,30 +16,47 @@ const menus = [
 ];
 
 const LinkComponent = ({ children, link, isOpen, styles, onClose }) => {
+  const router = useRouter();
+  const pathnow = router.pathname;
   return (
-    <Link
-      as={NextLink}
-      href={link}
-      passHref
-      {...styles}
-      fontSize={isOpen ? '25px' : ''}
-      mt={{ base: 4, md: 0 }}
-      mx={isOpen ? '0' : '5'}
-      display="block"
-      onClick={onClose}
-      position="relative"
-    >
-      {children}
-    </Link>
+    <NextLink href={link} passHref>
+      <Link
+        {...styles}
+        fontSize={isOpen ? '25px' : ''}
+        my={{ base: 4, md: 0 }}
+        mx={isOpen ? '0' : '5'}
+        display="block"
+        onClick={onClose}
+        position="relative"
+        transition="ease all 0.3s"
+        _hover={
+          pathnow === link
+            ? ''
+            : {
+                _after: {
+                  content: '""',
+                  w: '100%',
+                  h: '16px',
+                  bg: 'palletGoldHard',
+                  opacity: '0.3',
+                  position: 'absolute',
+                  left: '0',
+                  bottom: '8px',
+                  zIndex: '-1',
+                  transition: 'ease all 0.3s'
+                }
+              }
+        }
+      >
+        {children}
+      </Link>
+    </NextLink>
   );
 };
 
 const MenuItems = (props) => {
   const router = useRouter();
   const pathnow = router.pathname;
-
-  // console.log(pathnow);
-
   return pathnow === props.link ? (
     <Highlight>
       <LinkComponent {...props} />
