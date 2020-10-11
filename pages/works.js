@@ -1,4 +1,4 @@
-import { Container, Flex, Box, Heading, Link, Text, Button } from '@chakra-ui/core';
+import { Container, Flex, Box, Heading, Link, Text, Button, Icon } from '@chakra-ui/core';
 // Dynamic Data
 import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
@@ -8,6 +8,8 @@ import Masonry from '@/components/Masonry';
 import ReactPaginate from 'react-paginate';
 // import styles from '@/components/CSSModule/Pagination.module.css';
 import styles from '@/components/CSSModule/Pagination.module.scss';
+
+import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri';
 
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
@@ -41,6 +43,23 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
 
 const Works = ({ projects, debug, totalpages }) => {
   const router = useRouter();
+
+  // chakra gaul.
+  const ButtonPagination = {
+    border: '1px solid black',
+    borderRadius: '50%',
+    w: '20px',
+    h: '20px',
+    d: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    _hover: {
+      bg: 'palletBlue',
+      color: 'palletGoldHard'
+    },
+    fontSize: '16px'
+  };
+
   return (
     <>
       <Container maxW="xl">
@@ -56,39 +75,20 @@ const Works = ({ projects, debug, totalpages }) => {
       <ReactPaginate
         // previousLabel={'PREV'}
         previousLabel={
-          <Button
-            borderWidth="1px"
-            borderColor="lightgrey"
-            fontSize="12px"
-            borderRadius="0"
-            variant="outline"
-            _hover={{
-              color: 'palletGoldSoft',
-              bg: 'palletBlue'
-            }}
-          >
-            Prev
-          </Button>
+          <Box sx={ButtonPagination}>
+            <Icon as={RiArrowLeftSLine} />
+          </Box>
         }
         nextLabel={
-          <Button
-            borderWidth="1px"
-            borderColor="lightgrey"
-            fontSize="12px"
-            borderRadius="0"
-            variant="outline"
-            _hover={{
-              color: 'palletGoldSoft',
-              bg: 'palletBlue'
-            }}
-          >
-            Next
-          </Button>
+          <Box sx={ButtonPagination}>
+            <Icon as={RiArrowRightSLine} />
+          </Box>
         }
         breakLabel={'...'}
         breakClassName={'break-me'}
         activeClassName={styles.active}
         containerClassName={styles.pagination}
+        disabledClassName={styles.disabled}
         // subContainerClassName={'pages pagination'}
         pageCount={totalpages}
         marginPagesDisplayed={2}
@@ -96,6 +96,7 @@ const Works = ({ projects, debug, totalpages }) => {
         // Khusus di first.
         forcePage={0}
         onPageChange={(page) => router.push('/works/' + (page.selected + 1))}
+        disableInitialCallback={true}
       />
     </>
   );

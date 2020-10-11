@@ -18,6 +18,8 @@ import { omit } from 'lodash';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { createRef } from 'react';
 
+import axios from 'axios';
+
 const recaptchaRef = React.createRef();
 
 const SignupSchema = Yup.object().shape({
@@ -35,22 +37,19 @@ const FormContact = () => {
       validationSchema={SignupSchema}
       onSubmit={(values, actions) => {
         const cleanvalues = omit(values, 'recaptcha');
-        fetch(process.env.NEXT_PUBLIC_PAGECLIP_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Accept: 'application/json'
-          },
-          body: JSON.stringify(cleanvalues)
-        })
-          .then(function (response) {
-            console.log(response);
+        // fetch(process.env.NEXT_PUBLIC_PAGECLIP_URL, {
+        // ganti ke axios untuk handle cors
+        axios
+          .post('api/pageclip/', {
+            method: 'POST',
+            data: JSON.stringify(cleanvalues)
+          })
+          .then((response) => {
             actions.setSubmitting(false);
             actions.resetForm({ values: '' });
             recaptchaRef.current.reset();
 
-            if (response.ok) {
+            if (response.data.status == 200) {
               //   Simpen aja siapa tau nanti butuh buat set status ke props
               //   actions.setStatus({
               //     sent: true,

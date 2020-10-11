@@ -4,11 +4,20 @@
   align-items: center;
 
   li {
-    padding: 15px;
+    padding: 5px;
     list-style: none;
 
+    a {
+      font-weight: 600;
+      font-size: 12px;
+    }
+
     &.active a {
-      color: red;
+      color: 'palletGoldHard';
+    }
+
+    &.disabled {
+      display: none;
     }
   }
 }

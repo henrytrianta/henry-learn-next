@@ -54,15 +54,15 @@ const LinkComponent = ({ children, link, isOpen, styles, onClose }) => {
   );
 };
 
-const MenuItems = (props) => {
+const MenuItems = ({ link, ...rest }) => {
   const router = useRouter();
   const pathnow = router.pathname;
-  return pathnow === props.link ? (
+  return pathnow === link ? (
     <Highlight>
-      <LinkComponent {...props} />
+      <LinkComponent {...rest} link={link} />
     </Highlight>
   ) : (
-    <LinkComponent {...props} />
+    <LinkComponent {...rest} link={link} />
   );
 };
 
