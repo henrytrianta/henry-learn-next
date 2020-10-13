@@ -1,17 +1,30 @@
 import { useRouter } from 'next/router';
+import { Heading, Container, Flex } from '@chakra-ui/core';
 
 // Data Dynamic
 import Prismic from 'prismic-javascript';
-import { client } from '@/prismic-configuration';
+import { Client } from '@/utils/prismicHelpers';
+import Header from '@/components/Header';
 
-export async function getStaticProps({ params }) {
-  const { uid } = params;
-  console.log(uid);
+export async function getStaticProps({ preview = null, previewData = {}, params }) {
+  const { ref } = previewData;
+  const client = Client();
 
-  const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
-    orderings: '[my.project.date desc]',
-    pageSize: 2
-  });
+  // console node.
+  console.log(params.uid);
+
+  // const projects = await client.query(Prismic.Predicates.at('my.page.uid', params.uid), {
+  //   orderings: '[my.project.date desc]',
+  //   pageSize: 1,
+  //   ...(ref ? { ref } : null)
+  // });
+  const projects = await client
+    .query(Prismic.Predicates.at('my.page.uid', `${params.uid}`), { lang: '*' })
+    .then((documents) => {
+      return console.log(documents);
+    });
+
+  console.log(projects);
 
   return {
     props: {
@@ -21,6 +34,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
+  const client = Client();
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
     pageSize: 100
@@ -42,13 +56,15 @@ export async function getStaticPaths() {
 const Page = ({ projects, params }) => {
   console.log(params);
   const router = useRouter();
-  console.log(router);
+  console.log(router.query.id);
   console.log(projects);
   return (
     <>
-      <div>Test</div>
-      <div>UID : {router.query.uid}</div>
-      {/* <MasonryComponent projects={projects} /> */}
+      <Container maxW="xl">
+        <Flex direction="row" py={16} justifyContent="center">
+          <Heading>{router.query.uid}</Heading>
+        </Flex>
+      </Container>
     </>
   );
 };

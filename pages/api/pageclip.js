@@ -11,4 +11,7 @@ export default async (req, res) => {
       })
     );
   }
+  else {
+    return res.json({})
+  }
 };
