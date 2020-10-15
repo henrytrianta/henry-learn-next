@@ -10,25 +10,13 @@ export async function getStaticProps({ preview = null, previewData = {}, params 
   const { ref } = previewData;
   const client = Client();
 
-  // console node.
-  console.log(params.uid);
-
-  // const projects = await client.query(Prismic.Predicates.at('my.page.uid', params.uid), {
-  //   orderings: '[my.project.date desc]',
-  //   pageSize: 1,
-  //   ...(ref ? { ref } : null)
-  // });
-  const projects = await client
-    .query(Prismic.Predicates.at('my.page.uid', `${params.uid}`), { lang: '*' })
-    .then((documents) => {
-      return console.log(documents);
-    });
-
-  console.log(projects);
+  const projects = await client.query(Prismic.Predicates.at('my.project.uid', `${params.uid}`), {
+    lang: '*'
+  });
 
   return {
     props: {
-      projects
+      projects: projects ? projects.results : []
     }
   };
 }
@@ -53,16 +41,15 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-const Page = ({ projects, params }) => {
-  console.log(params);
+const Page = ({ projects }) => {
+  console.log(projects);
   const router = useRouter();
   console.log(router.query.id);
-  console.log(projects);
   return (
     <>
       <Container maxW="xl">
         <Flex direction="row" py={16} justifyContent="center">
-          <Heading>{router.query.uid}</Heading>
+          <Heading>{projects[0].data.title[0].text}</Heading>
         </Flex>
       </Container>
     </>
