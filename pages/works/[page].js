@@ -38,7 +38,7 @@ export async function getStaticPaths() {
 
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
-    pageSize: 4
+    pageSize: 100
     // ...(ref ? { ref } : null)
   });
 

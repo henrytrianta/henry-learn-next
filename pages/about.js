@@ -11,7 +11,7 @@ const About = () => {
         </Flex>
       </Container>
 
-      <Container maxW="xl">
+      <Container maxW="xl" h="100vh">
         <Flex direction="row" py={16}>
           This is about page. Test using chakra UI Hi my name is Henry Trianta, and i am working in
           Kesato as a Project Management. I was involved into some of the project that is happening

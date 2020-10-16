@@ -60,20 +60,19 @@ const MasonryComponent = ({ projects, buttonmore = true }) => {
             if (existHeight) {
               height = project.data.featured_image.tablet.dimensions.height;
             }
-            let staticHeight = (i + 3) * 2 + '00px';
-            let staticHeightWithoutPX = (i + 3) * 2 + '00';
 
             return (
               <NextLink href="/works" key={project.id} href={`/work/${project.uid}`} passHref>
-                <Box
-                  w="full"
-                  mt={i == 0 ? '50px' : ''}
-                  transition="ease all 0.2s"
-                  _hover={{ transform: 'scale(0.985)', transition: 'ease all 0.2s' }}
-                  cursor="pointer"
-                >
-                  {existHeight ? (
-                    <Box display="flex" className={styles.supportLazy} position="relative">
+                <Box w="full" mt={i == 0 ? '150px' : ''} cursor="pointer">
+                  <Box
+                    display="flex"
+                    className={styles.supportLazy}
+                    position="relative"
+                    transition="ease all 0.2s"
+                    _hover={{ transform: 'scale(0.96)', transition: 'ease all 0.2s' }}
+                    height={existHeight ? '' : '400px'}
+                  >
+                    {existHeight ? (
                       <Imgix
                         src={project.data.featured_image.url}
                         width={project.data.featured_image.dimensions.width}
@@ -89,22 +88,15 @@ const MasonryComponent = ({ projects, buttonmore = true }) => {
                           src: project.data.featured_image.url + '&w=100' // low quality image disini
                         }}
                       />
-                    </Box>
-                  ) : (
-                    <Box
-                      display="flex"
-                      className={styles.supportLazy}
-                      height="400px"
-                      position="relative"
-                    >
+                    ) : (
                       <img
                         src={`https://picsum.photos/id/${i + 2 * 10}/50/50`}
                         data-sizes="auto"
                         data-src={`https://picsum.photos/id/${i + 2 * 10}/800/800`}
                         className={`${styles.blurUp} lazyload`}
                       />
-                    </Box>
-                  )}
+                    )}
+                  </Box>
                   <Text pt="10px" align="center" fontSize="18px" fontWeight="500">
                     {project.data.title[0].text}
                   </Text>
