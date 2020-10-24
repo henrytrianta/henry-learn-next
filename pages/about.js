@@ -6,17 +6,20 @@ const About = () => {
       <Container maxW="xl">
         <Flex direction="row" py={24}>
           <Heading width={{ base: 'full', md: '4/5' }} size="lg" fontWeight="light">
-            About page
+            About Me.
           </Heading>
         </Flex>
       </Container>
 
-      <Container maxW="xl" h="100vh">
-        <Flex direction="row" py={16}>
-          This is about page. Test using chakra UI Hi my name is Henry Trianta, and i am working in
-          Kesato as a Project Management. I was involved into some of the project that is happening
-          inside our company, at the first time in Kesato, i was working in Quality Assurance role,
-          making sure all the code is implemented well on all the project.
+      <Container maxW="xl" h="100vh" display="flex">
+        <Flex w="4/12">
+          <Text>
+            Chapter 01 — <strong>Agency</strong>
+          </Text>
+        </Flex>
+        <Flex w="8/12" fontSize="25px" lineHeight="1.5" fontWeight="light" fontFamily="Graphik">
+          Exo Ape is a digital design-driven agency that crafts immersive experiences that inspire,
+          affect and delight in a digital-first world.
         </Flex>
       </Container>
     </>

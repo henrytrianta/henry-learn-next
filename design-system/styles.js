@@ -3,8 +3,24 @@ import { shadow } from '@chakra-ui/core';
 
 const styles = {
   global: (props) => ({
+    '@font-face': {
+      fontFamily: 'Graphik',
+      src: "url('/static/fonts/Graphik/Graphik-Light.otf') format('opentype')",
+      fontWeight: 300
+    },
+    '@font-face': {
+      fontFamily: 'Graphik',
+      src: "url('/static/fonts/Graphik/Graphik-Regular.otf') format('opentype')",
+      fontWeight: 400
+    },
+    '@font-face': {
+      fontFamily: 'Graphik',
+      src: "url('/static/fonts/Graphik/Graphik-Medium.otf') format('opentype')",
+      fontWeight: 500
+    },
     body: {
       fontFamily: 'body',
+      fontWeight: 300,
       color: mode('gray.700', 'whiteAlpha.900')(props),
       bg: mode('palletWhite', 'white')(props),
       lineHeight: 'normal',

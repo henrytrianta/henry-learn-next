@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { Heading, Container, Flex, Box } from '@chakra-ui/core';
+import { Heading, Container, Flex, Box, Skeleton } from '@chakra-ui/core';
 import React from 'react';
 
 // Data Dynamic
@@ -18,6 +18,9 @@ import styles from '@/components/CSSModule/Masonry.module.scss';
 // Animasi
 import { Controller, Scene } from 'react-scrollmagic';
 import { Controls, PlayState, Tween, Timeline } from 'react-gsap';
+
+// lodash
+import { hasIn } from 'lodash';
 
 export async function getStaticProps({ preview = null, previewData = {}, params }) {
   const { ref } = previewData;
@@ -56,9 +59,7 @@ export async function getStaticPaths() {
 }
 
 const Page = ({ project }) => {
-  console.log(project);
   const router = useRouter();
-  console.log(router.query.id);
   return (
     <>
       <Container maxW="xl">
@@ -67,27 +68,31 @@ const Page = ({ project }) => {
         </Flex>
         <Box overflow="hidden">
           <Controller>
-            <Scene duration={400} indicators={true} triggerElement="trigger">
+            <Scene duration={600} indicators={true} triggerElement="trigger">
               <Timeline
                 target={
                   <>
-                    <Box className={`${styles.supportLazy}`}>
-                      <Imgix
-                        src={project.data.featured_image.url}
-                        width={project.data.featured_image.dimensions.width}
-                        height={project.data.featured_image.dimensions.height}
-                        // add lazyload
-                        className={`${styles.blurUp} lazyload`}
-                        attributeConfig={{
-                          src: 'data-src',
-                          srcSet: 'data-srcset',
-                          sizes: 'data-sizes'
-                        }}
-                        htmlAttributes={{
-                          src: project.data.featured_image.url + '&w=100' // low quality image disini
-                        }}
-                      />
-                    </Box>
+                    {hasIn({ project }, 'project.data.featured_image.tablet.dimensions.height') ? (
+                      <Box className={`${styles.supportLazy}`}>
+                        <Imgix
+                          src={project.data.featured_image.url}
+                          width={project.data.featured_image.dimensions.width}
+                          height={project.data.featured_image.dimensions.height}
+                          // add lazyload
+                          className={`${styles.blurUp} lazyload`}
+                          attributeConfig={{
+                            src: 'data-src',
+                            srcSet: 'data-srcset',
+                            sizes: 'data-sizes'
+                          }}
+                          htmlAttributes={{
+                            src: project.data.featured_image.url + '&w=100' // low quality image disini
+                          }}
+                        />
+                      </Box>
+                    ) : (
+                      <Skeleton height="600px" />
+                    )}
                   </>
                 }
               >

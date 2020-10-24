@@ -4,7 +4,7 @@ import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
 import { Client } from '@/utils/prismicHelpers';
 
-import Masonry from '@/components/Masonry';
+import ProjectsMasonry from '@/components/ProjectsMasonry';
 import ReactPaginate from 'react-paginate';
 import Router, { withRouter, useRouter } from 'next/router';
 import styles from '@/components/CSSModule/Pagination.module.scss';
@@ -38,9 +38,11 @@ export async function getStaticPaths() {
 
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
     orderings: '[my.project.date desc]',
-    pageSize: 100
+    pageSize: 4
     // ...(ref ? { ref } : null)
   });
+
+  console.log(projects.total_pages);
 
   const pathni = projects.total_pages;
   let pathstatic = [];
@@ -56,7 +58,6 @@ export async function getStaticPaths() {
 }
 
 const Works = ({ projects, params, totalpages }) => {
-  console.log(params);
   const router = useRouter();
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const Works = ({ projects, params, totalpages }) => {
         </Flex>
       </Container>
 
-      <Masonry projects={projects} buttonmore={false} />
+      <ProjectsMasonry projects={projects} buttonmore={false} />
 
       <ReactPaginate
         // previousLabel={'PREV'}

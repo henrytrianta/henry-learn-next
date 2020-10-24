@@ -12,6 +12,7 @@ import Highlight from './Highlight';
 const menus = [
   { menu: 'works', link: '/works' },
   { menu: 'about', link: '/about' },
+  { menu: 'about notion', link: '/aboutnotion' },
   { menu: 'contact', link: '/contact' }
 ];
 

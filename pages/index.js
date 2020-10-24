@@ -2,22 +2,16 @@ import { Container, Flex, Box, Heading, Link, Text, Grid, Icon, Button } from '@
 import { useRemoteData, useEffect } from 'react';
 
 // Component
-import MasonryComponent from '@/components/Masonry';
+import ProjectsMasonry from '@/components/ProjectsMasonry';
 
 // Dynamic Data
 import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
 import { Client } from '@/utils/prismicHelpers';
 
-// Masonry
-// import Masonry from 'react-masonry-component';
-
 // Animasi
 import { Controller, Scene } from 'react-scrollmagic';
 import { Controls, PlayState, Tween } from 'react-gsap';
-
-// Image handler
-import { Image } from '@chakra-ui/core';
 
 // Highlight
 import Highlight from '@/components/Highlight';
@@ -30,7 +24,7 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
   const home = (await client.getSingle('homepage', ref ? { ref } : null)) || {};
 
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
-    orderings: '[my.project.date desc]',
+    orderings: '[my.project.date]',
     pageSize: 4,
     ...(ref ? { ref } : null)
   });
@@ -107,7 +101,7 @@ const Home = ({ home, projects }) => {
         </Flex>
       </Container>
 
-      <MasonryComponent projects={projects} buttonmore={true} />
+      <ProjectsMasonry projects={projects} buttonmore={true} />
     </>
   );
 };

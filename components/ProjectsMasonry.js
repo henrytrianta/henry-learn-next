@@ -40,7 +40,7 @@ const ButtonMore = () => {
   );
 };
 
-const MasonryComponent = ({ projects, buttonmore = true }) => {
+const ProjectsMasonry = ({ projects, buttonmore = true }) => {
   // console.log(projects);
   return (
     <Skeleton isLoaded={projects}>
@@ -97,7 +97,7 @@ const MasonryComponent = ({ projects, buttonmore = true }) => {
                       />
                     )}
                   </Box>
-                  <Text pt="10px" align="center" fontSize="18px" fontWeight="500">
+                  <Text pt="10px" align="center" fontSize="18px" fontWeight="300">
                     {project.data.title[0].text}
                   </Text>
                 </Box>
@@ -111,4 +111,4 @@ const MasonryComponent = ({ projects, buttonmore = true }) => {
   );
 };
 
-export default MasonryComponent;
+export default ProjectsMasonry;

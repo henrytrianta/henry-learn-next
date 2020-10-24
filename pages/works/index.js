@@ -4,7 +4,7 @@ import Prismic from 'prismic-javascript';
 import { RichText, Date } from 'prismic-reactjs';
 import { Client } from '@/utils/prismicHelpers';
 import Router, { withRouter, useRouter } from 'next/router';
-import Masonry from '@/components/Masonry';
+import ProjectsMasonry from '@/components/ProjectsMasonry';
 import ReactPaginate from 'react-paginate';
 // import styles from '@/components/CSSModule/Pagination.module.css';
 import styles from '@/components/CSSModule/Pagination.module.scss';
@@ -17,7 +17,7 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
   const client = Client();
 
   const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
-    orderings: '[my.project.date desc]',
+    orderings: '[my.project.date]',
     pageSize: 4,
     ...(ref ? { ref } : null)
   });
@@ -70,7 +70,7 @@ const Works = ({ projects, debug, totalpages }) => {
         </Flex>
       </Container>
 
-      <Masonry projects={projects} buttonmore={false} />
+      <ProjectsMasonry projects={projects} buttonmore={false} />
 
       <ReactPaginate
         // previousLabel={'PREV'}
