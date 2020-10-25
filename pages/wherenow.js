@@ -1,4 +1,4 @@
-import { Container, Flex, Skeleton, Stack, Grid } from '@chakra-ui/core';
+import { Container, Skeleton, Stack, Box } from '@chakra-ui/core';
 import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
 
@@ -30,7 +30,7 @@ const SkeletonNotion = () => {
   );
 };
 
-const AboutNotion = () => {
+const WhereNow = () => {
   const { data, error } = useSWR('/api/notionapi/page/e053271b2bd94ab7a59a0a6a9fca0560', fetcher);
   if (error) return <Box children="error" />;
   return (
@@ -44,4 +44,4 @@ const AboutNotion = () => {
   );
 };
 
-export default AboutNotion;
+export default WhereNow;

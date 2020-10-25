@@ -1,17 +1,17 @@
-import { Container, Flex, Box, Heading, Link, Text, Grid, Icon, Button } from '@chakra-ui/core';
-import { useRemoteData, useEffect } from 'react';
+import { Container, Flex, Box, Heading, Text } from '@chakra-ui/core';
 
 // Component
 import ProjectsMasonry from '@/components/ProjectsMasonry';
 
 // Dynamic Data
-import Prismic from 'prismic-javascript';
-import { RichText, Date } from 'prismic-reactjs';
-import { Client } from '@/utils/prismicHelpers';
+import { getProjects, getHome } from '@/utils/queries';
+
+// Prismic Helper
+import { RichText } from 'prismic-reactjs';
 
 // Animasi
 import { Controller, Scene } from 'react-scrollmagic';
-import { Controls, PlayState, Tween } from 'react-gsap';
+import { Tween } from 'react-gsap';
 
 // Highlight
 import Highlight from '@/components/Highlight';
@@ -19,15 +19,8 @@ import Highlight from '@/components/Highlight';
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
 
-  const client = Client();
-
-  const home = (await client.getSingle('homepage', ref ? { ref } : null)) || {};
-
-  const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
-    orderings: '[my.project.date]',
-    pageSize: 4,
-    ...(ref ? { ref } : null)
-  });
+  const home = await getHome(ref);
+  const projects = await getProjects(4, 0, ref);
 
   return {
     props: {
@@ -47,7 +40,7 @@ const Home = ({ home, projects }) => {
       <Container maxW="xl" centerContent>
         <Flex direction="row" align="center" py={24}>
           <Heading w={{ base: 'full', md: '4/5' }} size="lg" fontWeight="light" text="center">
-            {home.data.headline[0].text}{' '}
+            {RichText.asText(home.data.headline)}{' '}
             {stacks.map((stack, i) => {
               return (
                 <Highlight key={i} divider={i + 1 == stacks.length ? '. ' : ', '}>

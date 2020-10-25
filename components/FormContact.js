@@ -1,22 +1,9 @@
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Alert,
-  AlertIcon,
-  Button,
-  Input,
-  Textarea,
-  useToast
-} from '@chakra-ui/core';
-import { Fade, ScaleFade, Slide, SlideFade } from '@chakra-ui/transition';
+import { FormControl, FormErrorMessage, Button, Input, Textarea, useToast } from '@chakra-ui/core';
 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { omit } from 'lodash';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { createRef } from 'react';
 
 import axios from 'axios';
 
@@ -160,14 +147,6 @@ const FormContact = () => {
                 Submit
               </Button>
             </Form>
-            {/* <ScaleFade initialScale={0.9} timeout={450} in={props.status && props.status.sent}>
-              {(styles) => (
-                <Alert style={styles} mt="5" status="success">
-                  <AlertIcon />
-                  Message is sent!
-                </Alert>
-              )}
-            </ScaleFade> */}
           </>
         );
       }}

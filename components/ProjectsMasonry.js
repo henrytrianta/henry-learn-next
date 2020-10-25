@@ -1,15 +1,4 @@
-import {
-  Container,
-  Flex,
-  Box,
-  Heading,
-  Link,
-  Text,
-  Grid,
-  Icon,
-  Image,
-  Skeleton
-} from '@chakra-ui/core';
+import { Container, Box, Link, Text, Skeleton } from '@chakra-ui/core';
 import Masonry from 'react-masonry-css';
 import NextLink from 'next/link';
 
@@ -19,6 +8,9 @@ import styles from '@/components/CSSModule/Masonry.module.scss';
 
 // lodash
 import { hasIn } from 'lodash';
+
+// Prismic Helper
+import { RichText } from 'prismic-reactjs';
 
 // React Imgix with Lazy Sizes
 import Imgix from 'react-imgix';
@@ -41,7 +33,6 @@ const ButtonMore = () => {
 };
 
 const ProjectsMasonry = ({ projects, buttonmore = true }) => {
-  // console.log(projects);
   return (
     <Skeleton isLoaded={projects}>
       <Container maxW="xl">
@@ -97,8 +88,8 @@ const ProjectsMasonry = ({ projects, buttonmore = true }) => {
                       />
                     )}
                   </Box>
-                  <Text pt="10px" align="center" fontSize="18px" fontWeight="300">
-                    {project.data.title[0].text}
+                  <Text pt="10px" align="center" fontSize="18px">
+                    {RichText.asText(project.data.title)}
                   </Text>
                 </Box>
               </NextLink>

@@ -16,7 +16,8 @@ const Highlight = ({ children, divider, i }) => {
           width={divider ? '90%' : '100%'}
           height="16px"
           left="0"
-          bottom="8px"
+          bottom="50%"
+          transform="translateY(50%)"
           zIndex="-1"
         ></Box>
       </Box>

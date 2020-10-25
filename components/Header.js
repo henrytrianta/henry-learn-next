@@ -1,8 +1,7 @@
-import { Container, Box, Heading, Flex, Link, Text, useDisclosure } from '@chakra-ui/core';
+import { Container, Box, Heading, Flex, Link, useDisclosure } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import { ScaleFade } from '@chakra-ui/transition';
-import Router, { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 // Assets
 import Logo from '@/components/Icons/Logo';
@@ -12,13 +11,12 @@ import Highlight from './Highlight';
 const menus = [
   { menu: 'works', link: '/works' },
   { menu: 'about', link: '/about' },
-  { menu: 'about notion', link: '/aboutnotion' },
+  { menu: 'where i am work', link: '/wherenow' },
   { menu: 'contact', link: '/contact' }
 ];
 
 const LinkComponent = ({ children, link, isOpen, styles, onClose }) => {
-  const router = useRouter();
-  const pathnow = router.pathname;
+  const pathnow = useRouter().pathname;
   return (
     <NextLink href={link} passHref>
       <Link
@@ -31,7 +29,7 @@ const LinkComponent = ({ children, link, isOpen, styles, onClose }) => {
         position="relative"
         transition="ease all 0.3s"
         _hover={
-          pathnow === link
+          pathnow.includes(link)
             ? ''
             : {
                 _after: {
@@ -42,7 +40,8 @@ const LinkComponent = ({ children, link, isOpen, styles, onClose }) => {
                   opacity: '0.3',
                   position: 'absolute',
                   left: '0',
-                  bottom: '8px',
+                  bottom: '50%',
+                  transform: 'translateY(50%)',
                   zIndex: '-1',
                   transition: 'ease all 0.3s'
                 }
@@ -56,9 +55,8 @@ const LinkComponent = ({ children, link, isOpen, styles, onClose }) => {
 };
 
 const MenuItems = ({ link, ...rest }) => {
-  const router = useRouter();
-  const pathnow = router.pathname;
-  return pathnow === link ? (
+  const pathnow = useRouter().pathname;
+  return pathnow.includes(link) ? (
     <Highlight>
       <LinkComponent {...rest} link={link} />
     </Highlight>
@@ -71,7 +69,7 @@ const Header = () => {
   // const [show, setShow] = React.useState();
   // const handleToggle = () => setShow(!show);
   // ganti ke sistem chakra ui :)
-  const { isOpen, onToggle, onClose, onOpen } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <Container maxW="xl">
       <Flex

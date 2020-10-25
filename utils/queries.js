@@ -1,4 +1,5 @@
 import { Client } from './prismicHelpers';
+import Prismic from 'prismic-javascript';
 
 async function fetchDocs(page = 1, routes = []) {
   const response = await Client().query('', { pageSize: 100, lang: '*', page });
@@ -22,4 +23,20 @@ export const homePageQuery = async () => {
   return allRoutes.filter((doc) => doc.type === 'post').slice(0, 5);
 };
 
-/** s */
+/** Custom Query Henry */
+
+export const getProjects = async (pagesize = 100, page = 1, ref) => {
+  return await Client()
+    .query(Prismic.Predicates.at('document.type', 'project'), {
+      orderings: '[my.project.date]',
+      pageSize: pagesize,
+      page: page,
+      ...(ref ? { ref } : null)
+    })
+    .then((project) => {
+      return project;
+    });
+};
+
+export const getHome = async (ref) =>
+  (await Client().getSingle('homepage', ref ? { ref } : null)) || {};

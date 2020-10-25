@@ -20,7 +20,7 @@ const styles = {
     },
     body: {
       fontFamily: 'body',
-      fontWeight: 300,
+      fontWeight: 400,
       color: mode('gray.700', 'whiteAlpha.900')(props),
       bg: mode('palletWhite', 'white')(props),
       lineHeight: 'normal',

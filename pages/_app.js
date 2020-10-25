@@ -7,7 +7,6 @@ import SEO from '@/next-seo.config';
 import Header from '@/components/Header';
 import GoogleFonts from 'next-google-fonts';
 import Footer from '@/components/Footer';
-import 'react-notion/src/styles.css';
 
 const App = ({ Component, pageProps }) => {
   return (
