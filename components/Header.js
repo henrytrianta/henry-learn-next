@@ -9,9 +9,10 @@ import Highlight from './Highlight';
 
 // sementara hardcore
 const menus = [
-  { menu: 'works', link: '/works' },
+  // { menu: 'works', link: '/works' },
+  // { menu: 'where i work', link: '/wherework' },
   { menu: 'about', link: '/about' },
-  { menu: 'where i am work', link: '/wherenow' },
+  { menu: 'blog', link: '/blog' },
   { menu: 'contact', link: '/contact' }
 ];
 

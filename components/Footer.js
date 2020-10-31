@@ -34,17 +34,12 @@ const Footer = () => (
       </Link>
     </Box>
     <Box>
-      <NextLink href="/uses" passHref>
-        <Link fontSize="sm" color="gray.500" minWidth="100px" mr={2} title="Uses">
-          /uses
-        </Link>
-      </NextLink>
       <Link
         fontSize="sm"
         color="gray.500"
         minWidth="100px"
         mr={2}
-        href="https://photos.henry.pm/"
+        href="https://henrytrianta.vsco.co/"
         title="Photos"
         isExternal
       >

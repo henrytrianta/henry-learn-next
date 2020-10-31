@@ -1,11 +1,10 @@
 import React from 'react';
 import useSWR from 'swr';
+import fetcher from '@/lib/fetcher';
 import { Box, Link, Stack, Image, Text, Icon, Skeleton, useColorMode } from '@chakra-ui/core';
 
 // Icon
 import { RiSpotifyLine } from 'react-icons/ri';
-
-import fetcher from '@/lib/fetcher';
 
 const NowPlaying = () => {
   const { data } = useSWR('/api/now-playing', fetcher);

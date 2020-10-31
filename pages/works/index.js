@@ -1,7 +1,8 @@
 import { Container, Flex, Heading } from '@chakra-ui/core';
-// Dynamic Data
+// Component
 import ProjectsMasonry from '@/components/ProjectsMasonry';
 import ProjectsPaginate from '@/components/ProjectsPaginate';
+import Hero from '@/components/Hero';
 
 import { getProjects } from '@/utils/queries';
 
@@ -22,14 +23,7 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
 const Works = ({ projects, totalpages }) => {
   return (
     <>
-      <Container maxW="xl">
-        <Flex direction="row" py={24}>
-          <Heading width={{ base: 'full', md: '4/5' }} size="lg" fontWeight="light">
-            Work page
-          </Heading>
-        </Flex>
-      </Container>
-
+      <Hero>Work page</Hero>
       <ProjectsMasonry projects={projects} buttonmore={false} />
       <ProjectsPaginate totalpages={totalpages} page={0} />
     </>
