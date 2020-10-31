@@ -52,6 +52,8 @@ const ProjectsMasonry = ({ projects, buttonmore = true }) => {
               height = project.data.featured_image.tablet.dimensions.height;
             }
 
+            console.log(project);
+
             return (
               <NextLink href="/works" key={project.id} href={`/work/${project.uid}`} passHref>
                 <Box w="full" mt={i == 0 ? '150px' : ''} cursor="pointer">
@@ -65,9 +67,9 @@ const ProjectsMasonry = ({ projects, buttonmore = true }) => {
                   >
                     {existHeight ? (
                       <Imgix
-                        src={project.data.featured_image.url}
-                        width={project.data.featured_image.dimensions.width}
-                        height={project.data.featured_image.dimensions.height}
+                        src={project.data.featured_image.tablet.url}
+                        width={project.data.featured_image.tablet.dimensions.width}
+                        height={project.data.featured_image.tablet.dimensions.height}
                         // add lazyload
                         className={`${styles.blurUp} lazyload`}
                         attributeConfig={{
@@ -76,7 +78,7 @@ const ProjectsMasonry = ({ projects, buttonmore = true }) => {
                           sizes: 'data-sizes'
                         }}
                         htmlAttributes={{
-                          src: project.data.featured_image.url + '&w=100' // low quality image disini
+                          src: project.data.featured_image.url + '&w=50' // low quality image disini
                         }}
                       />
                     ) : (

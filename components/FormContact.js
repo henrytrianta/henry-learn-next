@@ -4,10 +4,11 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { omit } from 'lodash';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { createRef } from 'react';
 
 import axios from 'axios';
 
-const recaptchaRef = React.createRef();
+const recaptchaRef = createRef();
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(70, 'Too Long!').required('Required'),
