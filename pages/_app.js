@@ -7,8 +7,10 @@ import SEO from '@/next-seo.config';
 import Header from '@/components/Header';
 import GoogleFonts from 'next-google-fonts';
 import Footer from '@/components/Footer';
+import { useAnalytics } from '@happykit/analytics';
 
 const App = ({ Component, pageProps }) => {
+  useAnalytics({ publicKey: 'analytics_pub_41f04aa307' });
   return (
     <>
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" />
