@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 // Assets
 import Logo from '@/components/Icons/Logo';
-import Highlight from './Highlight';
+import Highlight from '@/components/Highlight';
 
 // sementara hardcore
 const menus = [
@@ -23,7 +23,7 @@ const LinkComponent = ({ children, link, isOpen, styles, onClose }) => {
       <Link
         {...styles}
         fontSize={isOpen ? '25px' : ''}
-        my={{ base: 4, md: 0 }}
+        my={{ base: 4, lg: 0 }}
         mx={isOpen ? '0' : '5'}
         display="block"
         onClick={onClose}
@@ -92,11 +92,7 @@ const Header = () => {
           </NextLink>
         </Flex>
 
-        <Box
-          display={{ base: 'block', md: 'none' }}
-          zIndex="10"
-          onClick={isOpen ? onClose : onOpen}
-        >
+        <Box display={{ lg: 'none' }} zIndex="10" onClick={isOpen ? onClose : onOpen}>
           <svg fill="black" width="14px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <title>Menu</title>
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
@@ -104,8 +100,8 @@ const Header = () => {
         </Box>
 
         <Box
-          display={{ base: isOpen ? 'flex' : 'none', md: 'flex' }}
-          width={{ base: '100vw', md: 'auto' }}
+          display={{ base: isOpen ? 'flex' : 'none', lg: 'flex' }}
+          width={{ base: '100vw', lg: 'auto' }}
           height={{ base: isOpen ? '100vh' : '' }}
           alignItems="center"
           justifyContent="center"
@@ -117,7 +113,7 @@ const Header = () => {
           bg={isOpen ? 'white' : ''}
         >
           {/* Henry note ini harus di improve */}
-          <Box display={{ base: 'none', md: 'flex' }}>
+          <Box display={{ base: 'none', lg: 'flex' }}>
             {menus.map((menu, i) => (
               <MenuItems key={i} link={menu.link} isOpen={isOpen} onClose={onClose}>
                 {menu.menu}
@@ -125,19 +121,19 @@ const Header = () => {
             ))}
           </Box>
           <ScaleFade initialScale={0.2} timeout={350} in={isOpen}>
-            {(styles) =>
-              menus.map((menu, i) => (
+            <>
+              {menus.map((menu, i) => (
                 <MenuItems
                   key={i}
                   link={menu.link}
                   isOpen={isOpen}
-                  styles={styles}
+                  // styles={styles}
                   onClose={onClose}
                 >
                   {menu.menu}
                 </MenuItems>
-              ))
-            }
+              ))}
+            </>
           </ScaleFade>
         </Box>
       </Flex>

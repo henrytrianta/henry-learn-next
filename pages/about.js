@@ -1,11 +1,11 @@
-import { Container, Flex, Text, Stack } from '@chakra-ui/core';
+import { Container, Flex, Text, Stack, Heading } from '@chakra-ui/core';
 import Hero from '@/components/Hero';
 
 const Datas = [
   {
     title: 'Who am I ?',
     desc:
-      'Writing software is at the very core of what I do. Because, leaders who code are better judges of technical skill in people. Working as a Project Manager gives me opportunities to learn what they are doing and sometimes doing what they usually do'
+      'Writing software is at the very core of what I do. Because, leaders who code are better judges of technical skill in people. Working as a project manager gives me opportunities to learn what they are doing and sometimes doing what they usually do'
   },
   { title: 'Why ?', desc: 'Because I like to take a hands-on approach to problem solving' },
   {
@@ -40,15 +40,10 @@ const About = () => {
                     Question 0{i + 1} — <strong>{data.title}</strong>
                   </Text>
                 </Flex>
-                <Flex
-                  w={{ sm: 'full', lg: '8/12' }}
-                  fontSize="23px"
-                  lineHeight="1.5"
-                  fontWeight="light"
-                  fontFamily="Graphik"
-                  pt={{ sm: '10px', lg: '0' }}
-                >
-                  {data.desc}
+                <Flex w={{ sm: 'full', lg: '8/12' }} pt={{ sm: '10px', lg: '0' }}>
+                  <Heading size="sm" lineHeight="1.5" fontFamily="Graphik" fontWeight="light">
+                    {data.desc}
+                  </Heading>
                 </Flex>
               </Flex>
             );

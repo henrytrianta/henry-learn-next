@@ -1,6 +1,6 @@
 // Component
-import ProjectsHero from '@/components/ProjectsHero';
-import ProjectsMasonry from '@/components/ProjectsMasonry';
+// import ProjectsHero from '@/components/ProjectsHero';
+// import ProjectsMasonry from '@/components/ProjectsMasonry';
 import Highlight from '@/components/Highlight';
 import Hero from '@/components/Hero';
 
@@ -19,14 +19,14 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
   return {
     props: {
       home,
-      projects: projects ? projects.results : [],
+      // projects: projects ? projects.results : [],
       preview
     },
     revalidate: 1
   };
 }
 
-const Home = ({ home, projects }) => {
+const Home = ({ home }) => {
   let stacks = home.data.stacks;
 
   return (

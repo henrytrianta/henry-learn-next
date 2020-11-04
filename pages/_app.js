@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { ChakraProvider } from '@chakra-ui/core';
-import Nprogress from '@/components/Nprogress';
+import NprogressComponent from '@/components/Nprogress';
 import theme from '@/design-system';
 import { DefaultSeo } from 'next-seo';
 import SEO from '@/next-seo.config';
@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }) => {
       </Head>
       <ChakraProvider resetCSS theme={theme} portalConfig={{ zIndex: 40 }}>
         <DefaultSeo {...SEO} />
-        <Nprogress />
+        <NprogressComponent />
         <Header />
         <Component {...pageProps} />
         <Footer />
