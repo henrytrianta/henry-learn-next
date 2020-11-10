@@ -40,6 +40,10 @@ const styles = {
       boxShadow: 'unset!important',
       outline: 'none!important'
     },
+    '.scroll-content': {
+      width: '100vw',
+      height: '100vh'
+    },
     fontFeatureSettings: `'kern'`,
     textRendering: 'optimizeLegibility',
     WebkitFontSmoothing: 'antialiased'

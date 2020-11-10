@@ -37,7 +37,9 @@
     "react-notion": "^0.8.2",
     "react-paginate": "^6.5.0",
     "react-scrollmagic": "^2.2.0",
+    "react-smooth-scrollbar": "^8.0.6",
     "sass": "^1.26.11",
+    "smooth-scrollbar": "^8.5.3",
     "swr": "^0.3.2",
     "yup": "^0.29.3"
   }
