@@ -10,6 +10,7 @@ import { getProjects, getHome } from '@/utils/queries';
 // Prismic Helper
 import { RichText } from 'prismic-reactjs';
 import { motion } from 'framer-motion';
+import { Box } from '@chakra-ui/core';
 
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
@@ -27,12 +28,20 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
   };
 }
 
-const Home = ({ home }) => {
+const InitialTransition = () => {
+  return (
+    <>
+      <Box position="absolute"></Box>
+    </>
+  );
+};
+
+const Home = ({ home, isFirstMount }) => {
   let stacks = home.data.stacks;
 
   return (
     <>
-      {/* <motion.div exit={{ opacity: 0 }}> */}
+      {isFirstMount && <InitialTransition />}
       <Hero>
         {RichText.asText(home.data.headline)}{' '}
         {stacks.map((stack, i) => {
@@ -45,7 +54,6 @@ const Home = ({ home }) => {
       </Hero>
       {/* <ProjectsHero />
       <ProjectsMasonry projects={projects} buttonmore={true} /> */}
-      {/* </motion.div> */}
     </>
   );
 };

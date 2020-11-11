@@ -11,17 +11,16 @@ import { useAnalytics } from '@happykit/analytics';
 import { motion, AnimatePresence } from 'framer-motion';
 import useMousePosition from '@/lib/useMousePosition';
 import Scrollbar from 'react-smooth-scrollbar';
-import Router from 'next/router';
 import { useState, useEffect } from 'react';
 
 const App = ({ Component, pageProps, router }) => {
   useAnalytics({ publicKey: 'analytics_pub_41f04aa307' });
   const { x, y } = useMousePosition();
-  const [spinner, setSpinner] = useState(false);
+  const [isFirstMount, setIsFirstMount] = useState(true);
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
-      console.log('App is changing to: ', url);
+    const handleRouteChange = () => {
+      isFirstMount && setIsFirstMount(false);
     };
 
     router.events.on('routeChangeStart', handleRouteChange);
@@ -47,9 +46,10 @@ const App = ({ Component, pageProps, router }) => {
         exit={{ opacity: 0 }}
         transition={{ type: 'spring', stiffness: 69 }}
       >
-        <Box position="absolute">
-          <svg width="20px" viewBox="0 0 10 10">
-            <circle fill="black" cx="4" cy="4" r="4" />
+        <Box position="absolute" top="-15px" left="-15px">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
+            <defs />
+            <path d="M256 0C115.03 0 0 115.05 0 256c0 140.97 115.05 256 256 256 140.97 0 256-115.05 256-256C512 115.03 396.95 0 256 0zm0 482C131.383 482 30 380.617 30 256S131.383 30 256 30s226 101.383 226 226-101.383 226-226 226z" />
           </svg>
         </Box>
       </motion.div>
@@ -59,8 +59,8 @@ const App = ({ Component, pageProps, router }) => {
         <Scrollbar damping={0.3} continuousScrolling={false}>
           <Header />
           <AnimatePresence exitBeforeEnter>
-            <motion.div key={router.route} exit={{ opacity: 0, y: 100 }}>
-              <Component {...pageProps} />
+            <motion.div key={router.route} exit={{ opacity: 0 }}>
+              <Component {...pageProps} isFirstMount={isFirstMount} />
             </motion.div>
           </AnimatePresence>
           <Footer />
