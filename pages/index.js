@@ -9,6 +9,7 @@ import { getProjects, getHome } from '@/utils/queries';
 
 // Prismic Helper
 import { RichText } from 'prismic-reactjs';
+import { motion } from 'framer-motion';
 
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
@@ -31,6 +32,7 @@ const Home = ({ home }) => {
 
   return (
     <>
+      {/* <motion.div exit={{ opacity: 0 }}> */}
       <Hero>
         {RichText.asText(home.data.headline)}{' '}
         {stacks.map((stack, i) => {
@@ -43,6 +45,7 @@ const Home = ({ home }) => {
       </Hero>
       {/* <ProjectsHero />
       <ProjectsMasonry projects={projects} buttonmore={true} /> */}
+      {/* </motion.div> */}
     </>
   );
 };

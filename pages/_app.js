@@ -8,16 +8,30 @@ import Header from '@/components/Header';
 import GoogleFonts from 'next-google-fonts';
 import Footer from '@/components/Footer';
 import { useAnalytics } from '@happykit/analytics';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import useMousePosition from '@/lib/useMousePosition';
 import Scrollbar from 'react-smooth-scrollbar';
-
-// import { useEffect } from 'react';
-// import { useRouter } from 'next/router';
+import Router from 'next/router';
+import { useState, useEffect } from 'react';
 
 const App = ({ Component, pageProps, router }) => {
   useAnalytics({ publicKey: 'analytics_pub_41f04aa307' });
   const { x, y } = useMousePosition();
+  const [spinner, setSpinner] = useState(false);
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      console.log('App is changing to: ', url);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, []);
 
   return (
     <>
@@ -25,25 +39,30 @@ const App = ({ Component, pageProps, router }) => {
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
+      <motion.div
+        animate={{
+          x: x,
+          y: y
+        }}
+        exit={{ opacity: 0 }}
+        transition={{ type: 'spring', stiffness: 69 }}
+      >
+        <Box position="absolute">
+          <svg width="20px" viewBox="0 0 10 10">
+            <circle fill="black" cx="4" cy="4" r="4" />
+          </svg>
+        </Box>
+      </motion.div>
       <ChakraProvider resetCSS theme={theme} portalConfig={{ zIndex: 40 }}>
         <DefaultSeo {...SEO} />
-        <motion.div
-          animate={{
-            x: x,
-            y: y,
-            opacity: 1
-          }}
-          transition={{ type: 'spring', stiffness: 100 }}
-        >
-          <Box position="absolute">
-            <svg width="10" height="10" viewBox="0 0 10 10">
-              <circle fill="black" cx="4" cy="4" r="4" />
-            </svg>
-          </Box>
-        </motion.div>
-        <Scrollbar damping={0.5} continuousScrolling={false} alwaysShowTracks={true}>
+
+        <Scrollbar damping={0.3} continuousScrolling={false}>
           <Header />
-          <Component {...pageProps} />
+          <AnimatePresence exitBeforeEnter>
+            <motion.div key={router.route} exit={{ opacity: 0, y: 100 }}>
+              <Component {...pageProps} />
+            </motion.div>
+          </AnimatePresence>
           <Footer />
         </Scrollbar>
       </ChakraProvider>
