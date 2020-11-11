@@ -24,7 +24,7 @@ const styles = {
       color: mode('gray.700', 'whiteAlpha.900')(props),
       bg: mode('palletWhite', 'white')(props),
       lineHeight: 'normal',
-      minHeight: 'full'
+      minHeight: '100vh'
     },
     '*::placeholder': {
       color: mode('gray.400', 'whiteAlpha.400')(props),

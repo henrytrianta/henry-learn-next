@@ -9,8 +9,8 @@ import { getProjects, getHome } from '@/utils/queries';
 
 // Prismic Helper
 import { RichText } from 'prismic-reactjs';
-import { motion } from 'framer-motion';
-import { Box } from '@chakra-ui/core';
+import { MotionBox } from '@/utils/animation';
+import InitialTransition from '@/components/InitialTransition';
 
 export async function getStaticProps({ preview = null, previewData = {} }) {
   const { ref } = previewData;
@@ -28,33 +28,33 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
   };
 }
 
-const InitialTransition = () => {
-  return (
-    <>
-      <Box position="absolute"></Box>
-    </>
-  );
-};
+const content = (isFirstMount) => ({
+  animate: {
+    transition: { staggerChildren: 0.1, delayChildren: isFirstMount ? 2.8 : 0 }
+  }
+});
 
 const Home = ({ home, isFirstMount }) => {
   let stacks = home.data.stacks;
 
   return (
-    <>
+    <MotionBox exit={{ opacity: 0 }}>
       {isFirstMount && <InitialTransition />}
-      <Hero>
-        {RichText.asText(home.data.headline)}{' '}
-        {stacks.map((stack, i) => {
-          return (
-            <Highlight key={i} divider={i + 1 == stacks.length ? '. ' : ', '}>
-              {stack.stack[0].text}
-            </Highlight>
-          );
-        })}
-      </Hero>
+      <MotionBox initial="initial" animate="animate" variants={content(isFirstMount)}>
+        <Hero>
+          {RichText.asText(home.data.headline)}{' '}
+          {stacks.map((stack, i) => {
+            return (
+              <Highlight key={i} divider={i + 1 == stacks.length ? '. ' : ', '}>
+                {stack.stack[0].text}
+              </Highlight>
+            );
+          })}
+        </Hero>
+      </MotionBox>
       {/* <ProjectsHero />
       <ProjectsMasonry projects={projects} buttonmore={true} /> */}
-    </>
+    </MotionBox>
   );
 };
 

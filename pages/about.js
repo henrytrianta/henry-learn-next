@@ -1,5 +1,6 @@
 import { Container, Flex, Text, Stack, Heading } from '@chakra-ui/core';
 import Hero from '@/components/Hero';
+import { MotionBox } from '@/utils/animation';
 
 const Datas = [
   {
@@ -27,7 +28,7 @@ const Datas = [
 
 const About = () => {
   return (
-    <>
+    <MotionBox exit={{ opacity: 0 }}>
       <Hero>About Me.</Hero>
 
       <Container maxW="xl">
@@ -50,7 +51,7 @@ const About = () => {
           })}
         </Stack>
       </Container>
-    </>
+    </MotionBox>
   );
 };
 

@@ -1,12 +1,10 @@
-import { Container, Flex, Box, Heading, Link, Text } from '@chakra-ui/core';
-
+import { Container, Flex, Heading, Text } from '@chakra-ui/core';
 import FormContact from '@/components/FormContact';
-import { motion } from 'framer-motion';
+import { MotionBox } from '@/utils/animation';
 
 const Contact = () => {
   return (
-    <>
-      {/* <motion.div exit={{ opacity: 0 }} onExitComplete={}> */}
+    <MotionBox exit={{ opacity: 0 }}>
       <Container maxW="xl">
         <Flex direction="column" py={24}>
           <Heading width={{ base: 'full', md: '4/5' }} size="lg" fontWeight="light">
@@ -21,8 +19,7 @@ const Contact = () => {
       <Container maxW="xl">
         <FormContact />
       </Container>
-      {/* </motion.div> */}
-    </>
+    </MotionBox>
   );
 };
 
