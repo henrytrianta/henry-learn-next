@@ -41,7 +41,7 @@ const Home = ({ home, isFirstMount }) => {
     <MotionBox exit={{ opacity: 0 }}>
       {isFirstMount && <InitialTransition />}
       <MotionBox initial="initial" animate="animate" variants={content(isFirstMount)}>
-        <Hero>
+        <Hero initial={{ y: -10 }} animate={{ y: 10 }}>
           {RichText.asText(home.data.headline)}{' '}
           {stacks.map((stack, i) => {
             return (

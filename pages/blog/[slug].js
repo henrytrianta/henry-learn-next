@@ -4,6 +4,7 @@ import { getAllPosts } from '@/lib/notion';
 // Component
 import Hero from '@/components/Hero';
 import BlogPostSingle from '@/components/BlogPost';
+import { MotionBox } from '@/utils/animation';
 
 export async function getStaticProps({ params: { slug } }) {
   // Get all posts again
@@ -37,10 +38,10 @@ const BlogPost = ({ post, blocks }) => {
   if (!post) return null;
 
   return (
-    <>
+    <MotionBox exit={{ opacity: 0 }}>
       <Hero center>{post.title}</Hero>
       <BlogPostSingle blocks={blocks} />
-    </>
+    </MotionBox>
   );
 };
 
