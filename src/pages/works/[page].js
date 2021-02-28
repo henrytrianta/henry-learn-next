@@ -8,7 +8,11 @@ import ProjectsPaginate from '@/components/ProjectsPaginate';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-export async function getStaticProps({ preview = null, previewData = {}, params }) {
+export async function getStaticProps({
+  preview = null,
+  previewData = {},
+  params,
+}) {
   const { ref } = previewData;
   const projects = await getProjects(4, params.page, ref);
 
@@ -17,32 +21,32 @@ export async function getStaticProps({ preview = null, previewData = {}, params 
       projects: projects ? projects.results : [],
       totalpages: projects ? projects.total_pages : [],
       preview,
-      params
+      params,
     },
-    revalidate: 1
+    revalidate: 1,
   };
 }
 
 export async function getStaticPaths() {
   const projects = await getProjects(4);
   const totalpage = projects.total_pages;
-  let path = [];
+  const path = [];
   let i;
 
-  for (i = 0; i < totalpage; i++) {
+  for (i = 0; i < totalpage; i += 1) {
     path.push(i + 1);
   }
 
   return {
-    paths: path.map((i) => `/works/${i}`),
-    fallback: false
+    paths: path.map((page) => `/works/${page}`),
+    fallback: false,
   };
 }
 
 const Works = ({ projects, params, totalpages }) => {
   const router = useRouter();
   useEffect(() => {
-    if (params.page == '1') {
+    if (params.page === '1') {
       router.push('/works', undefined, { shallow: true });
     }
   });
@@ -51,7 +55,11 @@ const Works = ({ projects, params, totalpages }) => {
     <>
       <Container maxW="xl">
         <Flex direction="row" py={24}>
-          <Heading width={{ base: 'full', md: '4/5' }} size="lg" fontWeight="light">
+          <Heading
+            width={{ base: 'full', md: '4/5' }}
+            size="lg"
+            fontWeight="light"
+          >
             Work page
           </Heading>
         </Flex>

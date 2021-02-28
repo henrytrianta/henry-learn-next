@@ -1,5 +1,5 @@
-import { Client } from './prismicHelpers';
 import Prismic from 'prismic-javascript';
+import { Client } from './prismicHelpers';
 
 async function fetchDocs(page = 1, routes = []) {
   const response = await Client().query('', { pageSize: 100, lang: '*', page });
@@ -12,7 +12,7 @@ async function fetchDocs(page = 1, routes = []) {
 
 /** Fetches all Prismic documents and filters them (eg. by document type).
  *  In production, you would probably query documents by type instead of filtering them.
- **/
+ * */
 export const queryRepeatableDocuments = async (filter) => {
   const allRoutes = await fetchDocs();
   return allRoutes.filter(filter);
@@ -25,18 +25,15 @@ export const homePageQuery = async () => {
 
 /** Custom Query Henry */
 
-export const getProjects = async (pagesize = 100, page = 1, ref) => {
-  return await Client()
+export const getProjects = async (pagesize = 100, page = 1, ref) =>
+  Client()
     .query(Prismic.Predicates.at('document.type', 'project'), {
       orderings: '[my.project.date]',
       pageSize: pagesize,
-      page: page,
-      ...(ref ? { ref } : null)
+      page,
+      ...(ref ? { ref } : null),
     })
-    .then((project) => {
-      return project;
-    });
-};
+    .then((project) => project);
 
 export const getHome = async (ref) =>
   (await Client().getSingle('homepage', ref ? { ref } : null)) || {};

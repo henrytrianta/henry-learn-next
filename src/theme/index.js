@@ -9,7 +9,7 @@ import foundations from './foundations';
 const overrides = {
   styles,
   ...foundations,
-  components: {}
+  components: {},
 };
 
 export default extendTheme(overrides);

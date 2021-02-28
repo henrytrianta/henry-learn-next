@@ -22,38 +22,40 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
     props: {
       home,
       projects: projects ? projects.results : [],
-      preview
+      preview,
     },
-    revalidate: 1
+    revalidate: 1,
   };
 }
 
 const content = (isFirstMount) => ({
   animate: {
-    transition: { staggerChildren: 0.1, delayChildren: isFirstMount ? 2.8 : 0 }
-  }
+    transition: { staggerChildren: 0.1, delayChildren: isFirstMount ? 2.8 : 0 },
+  },
 });
 
 const Home = ({ home, isFirstMount, projects }) => {
-  let stacks = home.data.stacks;
+  const { stacks } = home.data;
 
   return (
     <MotionBox exit={{ opacity: 0 }}>
       {isFirstMount && <InitialTransition />}
-      <MotionBox initial="initial" animate="animate" variants={content(isFirstMount)}>
+      <MotionBox
+        initial="initial"
+        animate="animate"
+        variants={content(isFirstMount)}
+      >
         <Hero initial={{ y: -10 }} animate={{ y: 10 }}>
           {RichText.asText(home.data.headline)}{' '}
-          {stacks.map((stack, i) => {
-            return (
-              <Highlight key={i} divider={i + 1 == stacks.length ? '. ' : ', '}>
-                {stack.stack[0].text}
-              </Highlight>
-            );
-          })}
+          {stacks.map((stack, i) => (
+            <Highlight divider={i + 1 === stacks.length ? '. ' : ', '}>
+              {stack.stack[0].text}
+            </Highlight>
+          ))}
         </Hero>
       </MotionBox>
       <ProjectsHero />
-      <ProjectsMasonry projects={projects} buttonmore={true} />
+      <ProjectsMasonry projects={projects} buttonmore />
     </MotionBox>
   );
 };

@@ -1,9 +1,8 @@
 import { get } from 'axios';
 
-const NOTION_BLOG_ID = process.env.NOTION_BLOG_ID;
+const { NOTION_BLOG_ID } = process.env;
 
-export const getAllPosts = async () => {
-  return await get(`https://notion-api.splitbee.io/v1/table/${NOTION_BLOG_ID}`).then(
-    (res) => res.data
+export const getAllPosts = async () =>
+  get(`https://notion-api.splitbee.io/v1/table/${NOTION_BLOG_ID}`).then(
+    (res) => res.data,
   );
-};

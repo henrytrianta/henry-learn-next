@@ -6,11 +6,14 @@ import Prismic from 'prismic-javascript';
 
 export default async (_, res) => {
   const client = Client();
-  const projects = await client.query(Prismic.Predicates.at('document.type', 'project'), {
-    orderings: '[my.project.date desc]',
-    pageSize: 4
-    //   ...(ref ? { ref } : null)
-  });
+  const projects = await client.query(
+    Prismic.Predicates.at('document.type', 'project'),
+    {
+      orderings: '[my.project.date desc]',
+      pageSize: 4,
+      //   ...(ref ? { ref } : null)
+    },
+  );
 
   res.json({ project: projects });
 };

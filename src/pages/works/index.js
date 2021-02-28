@@ -1,4 +1,3 @@
-import { Container, Flex, Heading } from '@chakra-ui/react';
 // Component
 import ProjectsMasonry from '@/components/ProjectsMasonry';
 import ProjectsPaginate from '@/components/ProjectsPaginate';
@@ -14,20 +13,18 @@ export async function getStaticProps({ preview = null, previewData = {} }) {
     props: {
       projects: projects ? projects.results : [],
       totalpages: projects ? projects.total_pages : [],
-      preview
+      preview,
     },
-    revalidate: 1
+    revalidate: 1,
   };
 }
 
-const Works = ({ projects, totalpages }) => {
-  return (
-    <>
-      <Hero>Work page</Hero>
-      <ProjectsMasonry projects={projects} buttonmore={false} />
-      <ProjectsPaginate totalpages={totalpages} page={0} />
-    </>
-  );
-};
+const Works = ({ projects, totalpages }) => (
+  <>
+    <Hero>Work page</Hero>
+    <ProjectsMasonry projects={projects} buttonmore={false} />
+    <ProjectsPaginate totalpages={totalpages} page={0} />
+  </>
+);
 
 export default Works;

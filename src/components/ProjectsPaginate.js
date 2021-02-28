@@ -17,9 +17,9 @@ const ButtonPagination = {
   alignItems: 'center',
   _hover: {
     bg: 'palletBlue',
-    color: 'palletGoldHard'
+    color: 'palletGoldHard',
   },
-  fontSize: '16px'
+  fontSize: '16px',
 };
 
 const ProjectsPaginate = ({ totalpages, page }) => {
@@ -36,8 +36,8 @@ const ProjectsPaginate = ({ totalpages, page }) => {
           <Icon as={RiArrowRightSLine} />
         </Box>
       }
-      breakLabel={'...'}
-      breakClassName={'break-me'}
+      breakLabel="..."
+      breakClassName="break-me"
       activeClassName={styles.active}
       containerClassName={styles.pagination}
       disabledClassName={styles.disabled}
@@ -45,8 +45,10 @@ const ProjectsPaginate = ({ totalpages, page }) => {
       marginPagesDisplayed={2}
       pageRangeDisplayed={5}
       forcePage={page}
-      onPageChange={(page) => router.push('/works/' + (page.selected + 1))}
-      disableInitialCallback={true}
+      onPageChange={(thisPage) =>
+        router.push(`/works/${thisPage.selected + 1}`)
+      }
+      disableInitialCallback
     />
   );
 };

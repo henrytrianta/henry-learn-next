@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const {
     query: { param },
-    method
+    method,
   } = req;
 
   switch (method) {
@@ -9,8 +9,8 @@ export default async function handler(req, res) {
       // Get data from notion api
       if (param[0] === 'page' || param[0] === 'table' || param[0] === 'user') {
         const data = await fetch(
-          `https://notion-api.splitbee.io/v1/${param[0]}/${param[1]}`
-        ).then((res) => res.json());
+          `https://notion-api.splitbee.io/v1/${param[0]}/${param[1]}`,
+        ).then((response) => response.json());
         res.json(data);
       } else {
         res.json({});

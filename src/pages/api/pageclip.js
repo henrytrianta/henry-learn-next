@@ -6,12 +6,9 @@ export default async (req, res) => {
   if (req.method === 'POST') {
     return res.json(
       // siapkan data req
-      await sendForm(req).then((response) => {
-        return response;
-      })
+      await sendForm(req).then((response) => response),
     );
   }
-  else {
-    return res.json({})
-  }
+
+  return res.json({});
 };

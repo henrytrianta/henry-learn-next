@@ -1,41 +1,24 @@
 import {
   Box,
   Container,
-  Divider,
   Flex,
   Heading,
-  Stack,
   Text,
-  Skeleton,
   HStack,
   VStack,
-  Link
+  Link,
 } from '@chakra-ui/react';
-import { MotionBox, MotionContainer, MotionFlex, opacityEffect } from '@/utils/animation';
+import { MotionBox } from '@/utils/animation';
 import React, { useEffect, useState } from 'react';
 import Clock from 'react-clock';
 import 'react-clock/dist/Clock.css';
-import styles from '@/components/CSSModule/ReactClock.module.scss';
 import Image from 'next/image';
-import { useInView } from 'react-intersection-observer';
 import AnimateOnScreen from '@/components/AnimateOnScreen';
 
-import { motion, useViewportScroll, useTransform } from 'framer-motion';
-
-const LinkProject = {
-  fontWeight: '300'
-};
-
-const Animation = {
-  initial: { y: 50, opacity: 0 },
-  animate: { y: 0, opacity: 1 },
-  transition: { duration: 10, type: 'spring' }
-};
-
-import { format, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
-import { formatISO } from 'date-fns';
-
 const Home2 = () => {
+  // console.log(DateISO);
+  const [value, setValue] = useState(new Date());
+
   useEffect(() => {
     const interval = setInterval(() => setValue(new Date(), 1000));
 
@@ -43,13 +26,6 @@ const Home2 = () => {
       clearInterval(interval);
     };
   }, []);
-
-  let DateISO = formatISO(new Date());
-  // console.log(DateISO);
-  let DateISOinUTC = zonedTimeToUtc(DateISO, 'UTC');
-  let DateISOinBali = utcToZonedTime(DateISOinUTC, 'SGT');
-  let DateNow = new Date();
-  const [value, setValue] = useState(new Date());
 
   return (
     <MotionBox exit={{ opacity: 0 }}>
@@ -61,7 +37,11 @@ const Home2 = () => {
             height={['auto', '100vh']}
             pt={['120px', '']}
           >
-            <Flex alignItems="center" justifyContent={['left', 'center']} grow={[0, 1]}>
+            <Flex
+              alignItems="center"
+              justifyContent={['left', 'center']}
+              grow={[0, 1]}
+            >
               <Heading
                 fontSize={['3xl', '5xl']}
                 lineHeight={['tight']}
@@ -80,8 +60,8 @@ const Home2 = () => {
             >
               <Box w={['full', '1/3']}>
                 <Text>
-                  We are a digital studio working at the intersection of design, technology & human
-                  interaction.
+                  We are a digital studio working at the intersection of design,
+                  technology & human interaction.
                 </Text>
               </Box>
               <HStack
@@ -123,7 +103,8 @@ const Home2 = () => {
             </Box>
             <VStack maxWidth="350px" alignItems="left">
               <Box>
-                Employee service reimagined. Manage all workplace requests in one single platform.
+                Employee service reimagined. Manage all workplace requests in
+                one single platform.
               </Box>
               <Link>View Case</Link>
             </VStack>

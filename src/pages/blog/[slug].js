@@ -13,16 +13,16 @@ export async function getStaticProps({ params: { slug } }) {
   // Find the current blogpost by slug
   const post = posts.find((t) => t.slug === slug);
 
-  const blocks = await get(`https://notion-api.splitbee.io/v1/page/${post.id}`).then(
-    (res) => res.data
-  );
+  const blocks = await get(
+    `https://notion-api.splitbee.io/v1/page/${post.id}`,
+  ).then((res) => res.data);
 
   return {
     props: {
       blocks,
-      post
+      post,
     },
-    revalidate: 1
+    revalidate: 1,
   };
 }
 
@@ -30,7 +30,7 @@ export async function getStaticPaths() {
   const table = await getAllPosts();
   return {
     paths: table.map((row) => `/blog/${row.slug}`),
-    fallback: true
+    fallback: true,
   };
 }
 

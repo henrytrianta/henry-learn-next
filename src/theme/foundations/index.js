@@ -20,7 +20,7 @@ const foundations = {
   shadows,
   space,
   borders,
-  transition
+  transition,
 };
 
 export default foundations;

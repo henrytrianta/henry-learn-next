@@ -9,20 +9,15 @@ import GoogleFonts from 'next-google-fonts';
 import Footer from '@/components/Footer';
 import { useAnalytics } from '@happykit/analytics';
 import { AnimatePresence } from 'framer-motion';
-import useMousePosition from '@/utils/useMousePosition';
 import { useState, useEffect } from 'react';
-import { MotionBox } from '@/utils/animation';
 
 const App = ({ Component, pageProps, router }) => {
-  console.log(router.route);
-
   useAnalytics({ publicKey: 'analytics_pub_41f04aa307' });
-  const { x, y } = useMousePosition();
   const [isFirstMount, setIsFirstMount] = useState(true);
 
   useEffect(() => {
     const handleRouteChange = () => {
-      isFirstMount && setIsFirstMount(false);
+      setIsFirstMount(false);
     };
 
     router.events.on('routeChangeStart', handleRouteChange);
@@ -61,7 +56,11 @@ const App = ({ Component, pageProps, router }) => {
         <DefaultSeo {...SEO} />
         <Header />
         <AnimatePresence exitBeforeEnter>
-          <Component {...pageProps} isFirstMount={isFirstMount} key={router.route} />
+          <Component
+            {...pageProps}
+            isFirstMount={isFirstMount}
+            key={router.route}
+          />
         </AnimatePresence>
         <Footer />
       </ChakraProvider>

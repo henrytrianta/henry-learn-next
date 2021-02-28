@@ -1,10 +1,51 @@
 import { MotionBox, MotionHeading } from '@/utils/animation';
-import { Heading } from '@chakra-ui/react';
 import { useState } from 'react';
+
+const blackBox = {
+  initial: {
+    height: '100%',
+    bottom: 0,
+  },
+  animate: {
+    height: 0,
+    transition: {
+      when: 'afterChildren',
+      duration: 1.5,
+      ease: [0.87, 0, 0.13, 1],
+    },
+  },
+};
+
+const text = {
+  initial: {
+    y: 40,
+  },
+  animate: {
+    y: 80,
+    transition: {
+      duration: 1.5,
+      ease: [0.87, 0, 0.13, 1],
+    },
+  },
+};
+
+const textContainer = {
+  initial: {
+    opacity: 1,
+  },
+  animate: {
+    opacity: 0,
+    transition: {
+      duration: 0.3,
+      when: 'afterChildren',
+    },
+  },
+};
 
 const InitialTransition = () => {
   // Scroll user to top to avoid showing the footer
   useState(() => {
+    // eslint-disable-next-line no-unused-expressions
     typeof windows !== 'undefined' && window.scrollTo(0, 0);
   }, []);
 
@@ -22,8 +63,19 @@ const InitialTransition = () => {
       animate="animate"
       variants={blackBox}
     >
-      <MotionBox variants={textContainer} position="absolute" zIndex="50" d="flex">
-        <MotionBox variants={text} w="100%" h="100%" fill="currentColor" color="blue">
+      <MotionBox
+        variants={textContainer}
+        position="absolute"
+        zIndex="50"
+        d="flex"
+      >
+        <MotionBox
+          variants={text}
+          w="100%"
+          h="100%"
+          fill="currentColor"
+          color="blue"
+        >
           <MotionHeading>Welcome to Henry</MotionHeading>
         </MotionBox>
       </MotionBox>
@@ -50,47 +102,6 @@ const InitialTransition = () => {
       </motion.svg> */}
     </MotionBox>
   );
-};
-
-const blackBox = {
-  initial: {
-    height: '100%',
-    bottom: 0
-  },
-  animate: {
-    height: 0,
-    transition: {
-      when: 'afterChildren',
-      duration: 1.5,
-      ease: [0.87, 0, 0.13, 1]
-    }
-  }
-};
-
-const text = {
-  initial: {
-    y: 40
-  },
-  animate: {
-    y: 80,
-    transition: {
-      duration: 1.5,
-      ease: [0.87, 0, 0.13, 1]
-    }
-  }
-};
-
-const textContainer = {
-  initial: {
-    opacity: 1
-  },
-  animate: {
-    opacity: 0,
-    transition: {
-      duration: 0.3,
-      when: 'afterChildren'
-    }
-  }
 };
 
 export default InitialTransition;

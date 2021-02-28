@@ -1,7 +1,16 @@
 import React from 'react';
 import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
-import { Box, Link, Stack, Image, Text, Icon, Skeleton, useColorMode } from '@chakra-ui/react';
+import {
+  Box,
+  Link,
+  Stack,
+  Image,
+  Text,
+  Icon,
+  Skeleton,
+  useColorMode,
+} from '@chakra-ui/react';
 
 // Icon
 import { RiSpotifyLine } from 'react-icons/ri';
@@ -11,7 +20,7 @@ const NowPlaying = () => {
   const { colorMode } = useColorMode();
   const borderColor = {
     light: 'gray.200',
-    dark: 'gray.700'
+    dark: 'gray.700',
   };
 
   return (
@@ -32,7 +41,7 @@ const NowPlaying = () => {
           height="60px"
           width="60px"
           borderRadius={8}
-          src={data?.albumImageUrl || '/static/images/placeholder.jpg'}
+          src={data.albumImageUrl || '/static/images/placeholder.jpg'}
         />
       </Skeleton>
       <Stack
@@ -50,10 +59,10 @@ const NowPlaying = () => {
           whiteSpace="nowrap"
           overflow="hidden"
           textOverflow="ellipsis"
-          href={data?.songUrl}
+          href={data.songUrl}
           isExternal
         >
-          {data && (data?.title || 'Not Playing')}
+          {data && (data.title || 'Not Playing')}
         </Link>
         <Text
           color="gray.500"
@@ -63,7 +72,7 @@ const NowPlaying = () => {
           overflow="hidden"
           textOverflow="ellipsis"
         >
-          {data && (data?.artist || 'Spotify')}
+          {data && (data.artist || 'Spotify')}
         </Text>
       </Stack>
       <Icon as={RiSpotifyLine} />

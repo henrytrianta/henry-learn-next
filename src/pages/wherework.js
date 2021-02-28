@@ -1,4 +1,4 @@
-import { Container, Skeleton, Stack, Box } from '@chakra-ui/react';
+import { Container, Stack } from '@chakra-ui/react';
 import { get } from 'axios';
 
 import { NotionRenderer } from 'react-notion';
@@ -11,28 +11,24 @@ export async function getStaticProps() {
   //   return res.data;
   // });
   const data = await get(
-    'https://notion-api.splitbee.io/v1/page/e053271b2bd94ab7a59a0a6a9fca0560'
-  ).then((res) => {
-    return res.data;
-  });
+    'https://notion-api.splitbee.io/v1/page/e053271b2bd94ab7a59a0a6a9fca0560',
+  ).then((res) => res.data);
 
   return {
     props: {
-      blockMap: data
-    }
+      blockMap: data,
+    },
   };
 }
 
-const WhereWork = ({ blockMap }) => {
-  return (
-    <>
-      <Container maxW="xl">
-        <Stack direction="column" w="100%" py={24}>
-          <NotionRenderer blockMap={blockMap} />
-        </Stack>
-      </Container>
-    </>
-  );
-};
+const WhereWork = ({ blockMap }) => (
+  <>
+    <Container maxW="xl">
+      <Stack direction="column" w="100%" py={24}>
+        <NotionRenderer blockMap={blockMap} />
+      </Stack>
+    </Container>
+  </>
+);
 
 export default WhereWork;

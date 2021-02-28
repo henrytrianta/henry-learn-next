@@ -8,7 +8,7 @@ import {
   Button,
   Text,
   useToast,
-  useColorMode
+  useColorMode,
 } from '@chakra-ui/react';
 
 const Subscribe = () => {
@@ -18,11 +18,11 @@ const Subscribe = () => {
   const { colorMode } = useColorMode();
   const bgColor = {
     light: 'blue.50',
-    dark: 'blue.900'
+    dark: 'blue.900',
   };
   const borderColor = {
     light: 'blue.200',
-    dark: 'blue.900'
+    dark: 'blue.900',
   };
 
   const subscribe = async (e) => {
@@ -31,12 +31,12 @@ const Subscribe = () => {
 
     const res = await fetch('/api/subscribe', {
       body: JSON.stringify({
-        email: inputEl.current.value
+        email: inputEl.current.value,
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      method: 'POST'
+      method: 'POST',
     });
 
     setLoading(false);
@@ -48,7 +48,7 @@ const Subscribe = () => {
         description: error,
         status: 'error',
         duration: 3000,
-        isClosable: true
+        isClosable: true,
       });
 
       return;
@@ -60,7 +60,7 @@ const Subscribe = () => {
       description: 'You are now subscribed.',
       status: 'success',
       duration: 3000,
-      isClosable: true
+      isClosable: true,
     });
   };
 
@@ -77,7 +77,10 @@ const Subscribe = () => {
       <Heading as="h5" size="lg" mb={2}>
         Subscribe
       </Heading>
-      <Text>Get emails from me about web development, tech, and early access to new articles.</Text>
+      <Text>
+        Get emails from me about web development, tech, and early access to new
+        articles.
+      </Text>
       <InputGroup size="md" mt={4}>
         <Input
           aria-label="Email for newsletter"
@@ -86,7 +89,13 @@ const Subscribe = () => {
           type="email"
         />
         <InputRightElement width="6.75rem">
-          <Button isLoading={loading} fontWeight="bold" h="1.75rem" size="sm" onClick={subscribe}>
+          <Button
+            isLoading={loading}
+            fontWeight="bold"
+            h="1.75rem"
+            size="sm"
+            onClick={subscribe}
+          >
             Subscribe
           </Button>
         </InputRightElement>

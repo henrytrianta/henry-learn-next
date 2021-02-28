@@ -10,7 +10,7 @@ const SEO = {
   twitter: {
     handle: '@henrytrianta',
     site: '@henrytrianta',
-    cardType: 'summary_large_image'
+    cardType: 'summary_large_image',
   },
   openGraph: {
     type: 'website',
@@ -23,10 +23,10 @@ const SEO = {
         url: `${BASE_URL}/static/images/og.png`,
         alt: title,
         width: 1280,
-        height: 720
-      }
-    ]
-  }
+        height: 720,
+      },
+    ],
+  },
 };
 
 export default SEO;

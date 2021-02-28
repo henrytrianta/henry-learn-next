@@ -1,23 +1,22 @@
 import { Children, cloneElement, isValidElement, memo, useEffect } from 'react';
-import { useAnimation } from 'framer-motion';
+import { useAnimation, motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
 
 const transition = {
   delay: 0.3,
   translateY: {
     duration: 1,
-    ease: [0, 0.7, 0.29, 0.97]
+    ease: [0, 0.7, 0.29, 0.97],
   },
   opacity: {
     duration: 1,
-    ease: [0.25, 0.1, 0.25, 1.0]
-  }
+    ease: [0.25, 0.1, 0.25, 1.0],
+  },
 };
 
 const variants = {
   show: { translateY: 0, opacity: 1 },
-  hidden: { translateY: 60, opacity: 0 }
+  hidden: { translateY: 60, opacity: 0 },
 };
 
 const AnimateOnScreen = ({ children: childrenProp }) => {
@@ -59,15 +58,6 @@ const AnimateOnScreen = ({ children: childrenProp }) => {
         {cloneElement(child)}
       </motion.div>
     );
-
-    // Modify abit
-    return cloneElement(child, {
-      variants,
-      transition,
-      animate: animation,
-      initial: 'hidden',
-      ref: handleRef
-    });
   });
 
   return children;
