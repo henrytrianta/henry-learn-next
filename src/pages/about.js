@@ -1,6 +1,6 @@
 import { Container, Flex, Text, Stack, Heading } from '@chakra-ui/react';
 import Hero from '@/components/Hero';
-import { MotionBox } from '@/utils/animation';
+import { MotionBox, MotionFlex, MotionText } from '@/utils/animation';
 
 const Datas = [
   {
@@ -30,23 +30,22 @@ const About = () => {
   return (
     <MotionBox exit={{ opacity: 0 }}>
       <Hero>About Me.</Hero>
-
       <Container maxW="xl">
         <Stack spacing="24px">
           {Datas.map((data, i) => {
             return (
-              <Flex key={i} direction={{ sm: 'column', lg: 'row' }}>
+              <MotionFlex key={i} direction={{ sm: 'column', lg: 'row' }}>
                 <Flex w={{ sm: 'full', lg: '4/12' }}>
-                  <Text>
+                  <MotionText initial={{ x: -100 }} animate={{ x: 0 }} exit={{ x: -100 }}>
                     Question 0{i + 1} — <strong>{data.title}</strong>
-                  </Text>
+                  </MotionText>
                 </Flex>
                 <Flex w={{ sm: 'full', lg: '8/12' }} pt={{ sm: '10px', lg: '0' }}>
                   <Heading size="sm" lineHeight="1.5" fontFamily="Graphik" fontWeight="light">
                     {data.desc}
                   </Heading>
                 </Flex>
-              </Flex>
+              </MotionFlex>
             );
           })}
         </Stack>
