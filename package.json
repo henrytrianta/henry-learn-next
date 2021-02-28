@@ -8,11 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
-    "@chakra-ui/core": "^1.0.0-rc.8",
-    "@chakra-ui/theme": "^1.0.0-rc.8",
-    "@chakra-ui/theme-tools": "^1.0.0-rc.8",
+    "@chakra-ui/react": "^1.0.0",
+    "@chakra-ui/theme-tools": "^1.0.1",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
     "@happykit/analytics": "^1.0.1",
-    "axios": "^0.20.0",
+    "@uiw/react-clock": "^1.1.2",
+    "axios": "^0.21.0",
+    "date-fns": "^2.16.1",
     "formik": "^2.1.5",
     "framer-motion": "^2.9.4",
     "gsap": "^3.5.1",
@@ -28,19 +31,21 @@
     "prismjs": "^1.22.0",
     "querystring": "^0.2.0",
     "react": "^17.0.1",
+    "react-clock": "^3.0.0",
     "react-dom": "^17.0.1",
     "react-google-recaptcha": "^2.1.0",
     "react-gsap": "^2.2.1",
-    "react-icons": "^3.11.0",
+    "react-icons": "^4.1.0",
     "react-imgix": "^9.0.2",
+    "react-intersection-observer": "^8.31.0",
     "react-masonry-css": "^1.0.14",
-    "react-notion": "^0.8.2",
+    "react-notion": "^0.9.3",
     "react-paginate": "^6.5.0",
     "react-scrollmagic": "^2.2.0",
     "react-smooth-scrollbar": "^8.0.6",
     "sass": "^1.26.11",
     "smooth-scrollbar": "^8.5.3",
     "swr": "^0.3.2",
-    "yup": "^0.29.3"
+    "yup": "^0.32.1"
   }
 }
