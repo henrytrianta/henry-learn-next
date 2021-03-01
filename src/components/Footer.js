@@ -2,7 +2,7 @@ import React from 'react';
 import NextLink from 'next/link';
 import { Flex, Link, Box, Icon } from '@chakra-ui/react';
 
-import NowPlaying from '@/components/NowPlaying';
+// import NowPlaying from '@/components/NowPlaying';
 
 // Icon
 import {
@@ -15,7 +15,6 @@ import {
 
 const Footer = () => (
   <Flex align="center" mt="24" mb="4" direction="column">
-    <NowPlaying />
     <Box mb="15px">
       <Link
         href="https://facebook.com/henrytrianta"
