@@ -93,16 +93,16 @@ const green = {
 };
 
 module.exports = {
+  corePlugins: {
+    // disable core plugin
+    container: false,
+  },
   purge: [
     '.src/pages/**/*.{js,ts,jsx,tsx}',
     '.src/components/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
-    container: {
-      padding: '1rem',
-      center: true,
-    },
     extend: {
       colors: {
         // Pallete 19 - Refactoring UI
@@ -122,5 +122,25 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    ({ addComponents, theme }) => {
+      addComponents({
+        '.container': {
+          marginInline: 'auto',
+          paddingInline: theme('spacing.4'),
+          maxWidth: theme('screens.sm'),
+
+          '@screen sm': {
+            maxWidth: theme('screens.sm'),
+          },
+          '@screen md': {
+            maxWidth: theme('screens.md'),
+          },
+          '@screen lg': {
+            maxWidth: '850px',
+          },
+        },
+      });
+    },
+  ],
 };

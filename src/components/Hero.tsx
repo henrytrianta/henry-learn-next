@@ -18,7 +18,7 @@ const Hero = () => {
       </p>
       <a
         href="index.html"
-        className="mt-12 block sm:inline-block px-10 py-4 bg-secondary transition-colors hover:bg-secondary-700 font-body font-semibold text-white text-xl sm:text-2xl text-center sm:text-left"
+        className="mt-12 block sm:inline-block px-10 py-4 bg-secondary-700 transition-colors hover:bg-secondary-900 dark:bg-yellow-700 dark:hover:bg-yellow-900 font-body font-semibold text-white text-xl sm:text-2xl text-center sm:text-left"
       >
         Say Hello!
       </a>

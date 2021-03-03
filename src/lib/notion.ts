@@ -1,4 +1,4 @@
-import { get } from 'axios';
+import get from 'axios';
 
 const { NOTION_BLOG_ID } = process.env;
 

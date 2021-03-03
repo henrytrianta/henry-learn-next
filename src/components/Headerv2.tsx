@@ -84,7 +84,7 @@ const Header = () => {
               <li key={menu.text} className="mr-6 relative group mb-1">
                 <div className="absolute left-0 bottom-0 w-full transition-all h-0 group-hover:h-2 group-hover:bg-yellow opacity-75 z-20" />
                 <Link href={menu.link} passHref>
-                  <a className="font-body font-medium text-lg text-primary dark:text-white group-hover:text-green dark:group-hover:text-secondary px-2 z-30 block relative transition-colors">
+                  <a className="font-body font-medium text-lg text-primary dark:text-white group-hover:text-secondary dark:group-hover:text-yellow-200 px-2 z-30 block relative transition-colors">
                     {menu.text}
                   </a>
                 </Link>
